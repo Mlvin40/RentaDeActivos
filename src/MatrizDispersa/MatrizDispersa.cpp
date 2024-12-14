@@ -15,7 +15,6 @@ MatrizDispersa::MatrizDispersa() {
     this->nodoCabeceraHorizontal = nullptr;
     this->nodoCabeceraVertical = nullptr;
 }
-
 bool MatrizDispersa::estaVacia() {
     if (this->nodoCabeceraHorizontal == nullptr && this->nodoCabeceraVertical == nullptr) {
         return true;
@@ -45,7 +44,7 @@ void MatrizDispersa::insertarValor(string valor, string departamento, string emp
     cabeceraV = cabeceraVertical(empresa);
 
 
-    // Si no existe la cabecera se inserta la cabecera y el valor
+    // Si no existen las cabeceras, se insertan las cabeceras y el valor
     if (cabeceraH == nullptr && cabeceraV == nullptr)
     {
         cabeceraH = insertarCabeceraHorizontal(departamento);
@@ -69,9 +68,8 @@ void MatrizDispersa::insertarValor(string valor, string departamento, string emp
         return;
     }
 
-
-
-
+    // si ya existen las cabeceras se inserta el valor en las cabeceras existentes
+    insertarValorCabecerasExistentes(valor, departamento, empresa);
 
 }
 
@@ -198,9 +196,7 @@ NodoMatriz *MatrizDispersa::llegarCabeceraHorizontal(NodoMatriz *nodo) {
     while (auxiliar->arriba != nullptr){
         auxiliar = auxiliar->arriba;
     }
-
     return auxiliar;
-
 }
 
 // Metodo para llegar a la cabecera vertical
@@ -212,3 +208,66 @@ NodoMatriz *MatrizDispersa::llegarCabeceraVertical(NodoMatriz *nodo) {
     }
     return auxiliar;
 }
+
+void MatrizDispersa::insertarValorCabecerasExistentes(string valor, string departamento, string institucion) {
+    NodoMatriz *auxiliarHorizontal = this->nodoCabeceraHorizontal;
+    NodoMatriz *auxiliarVertical = this->nodoCabeceraVertical;
+    NodoMatriz *nuevoUsuario = new NodoMatriz(valor);
+
+    // **Paso 1: Encontrar cabeceras**
+    // Buscar la cabecera horizontal (por departamento)
+    while (auxiliarHorizontal != nullptr && auxiliarHorizontal->valor != departamento) {
+        auxiliarHorizontal = auxiliarHorizontal->siguiente;
+    }
+
+    // Buscar la cabecera vertical (por institución)
+    while (auxiliarVertical != nullptr && auxiliarVertical->valor != institucion) {
+        auxiliarVertical = auxiliarVertical->abajo;
+    }
+
+    // Verificar si ambas cabeceras existen
+    if (auxiliarHorizontal == nullptr || auxiliarVertical == nullptr) {
+        std::cerr << "Error: No se encontraron las cabeceras especificadas.\n";
+        return;
+    }
+
+    // **Paso 2: Ajustar enlaces horizontales**
+    NodoMatriz *horizontalActual = auxiliarVertical;  // Partir desde la cabecera vertical
+
+    // Buscar el nodo "Max" en la fila horizontal
+    while (horizontalActual->siguiente != nullptr && horizontalActual->siguiente->valor != "Usuario4") {
+        horizontalActual = horizontalActual->siguiente;
+    }
+
+    // **Actualizar enlaces para insertar Usuario5**
+    NodoMatriz *anteriorMax = horizontalActual; // Nodo "Max"
+    NodoMatriz *usuario4 = anteriorMax->siguiente; // Nodo "Usuario4"
+
+    // Ajustar punteros
+    anteriorMax->siguiente = nuevoUsuario; // Max -> Usuario5
+    nuevoUsuario->anterior = anteriorMax; // Usuario5 <- Max
+    nuevoUsuario->siguiente = usuario4;  // Usuario5 -> Usuario4
+
+    if (usuario4 != nullptr) {
+        usuario4->anterior = nuevoUsuario; // Usuario4 <- Usuario5
+    }
+
+    // **Paso 3: Ajustar enlaces verticales (si aplica)**
+    NodoMatriz *verticalActual = auxiliarHorizontal; // Partir desde la cabecera horizontal
+    while (verticalActual->abajo != nullptr && verticalActual->abajo->valor < valor) {
+        verticalActual = verticalActual->abajo;
+    }
+
+    // Insertar el nuevo usuario en la columna vertical
+    nuevoUsuario->abajo = verticalActual->abajo;
+    if (verticalActual->abajo != nullptr) {
+        verticalActual->abajo->arriba = nuevoUsuario;
+    }
+    verticalActual->abajo = nuevoUsuario;
+    nuevoUsuario->arriba = verticalActual;
+}
+
+
+
+
+

@@ -7,6 +7,12 @@
 
 #include "NodoMatriz.h"
 
+
+//Caso de agregar atras y adelante de un nodo
+
+//Agregar el metodo para insertar en donde ya existen las cabeceras y valor
+
+
 class MatrizDispersa {
 public:
     // cabecera horizontal
@@ -38,6 +44,9 @@ public:
     //Metodos que llegue hasta la cabecera horizontal y vertical de cualquier nodo
     NodoMatriz *llegarCabeceraHorizontal(NodoMatriz *nodo);
     NodoMatriz *llegarCabeceraVertical(NodoMatriz *nodo);
+
+    //Insertar un valor en cabeceras que ya existen y ya tienen un usuario
+    void insertarValorCabecerasExistentes(string valor, string departamento, string institucion);
 
 };
 
