@@ -23,15 +23,21 @@ public:
     bool estaVacia();
 
     //metodo para saber si existe o no una cabecera
-    NodoMatriz *cabeceraHorizontal(int valor);
-    NodoMatriz *cabeceraVertical(int valor);
+    NodoMatriz *cabeceraHorizontal(string valor);
+    NodoMatriz *cabeceraVertical(string valor);
+
+    NodoMatriz *insertarCabeceraHorizontal(string valor);
+    NodoMatriz *insertarCabeceraVertical(string valor);
+    void insertarValor(string valor, string cabezaHorizontal, string cabezaVertical);
+    void insertarAlFinal(string valor, NodoMatriz *cabezaHorizontal, NodoMatriz *cabezaVertical);
 
 
-    NodoMatriz *insertarCabeceraHorizontal(int valor);
-    NodoMatriz *insertarCabeceraVertical(int valor);
-    void insertarValor(int valor, int cabezaHorizontal, int cabezaVertical);
-    void insertarAlFinal(int valor, NodoMatriz *cabezaHorizontal, NodoMatriz *cabezaVertical);
+    void insertarAlFinalVertical(string valor, NodoMatriz *nodoHorizontal);
+    void insertarAlMedio(string valor, NodoMatriz *nodoVertical);
 
+    //Metodos que llegue hasta la cabecera horizontal y vertical de cualquier nodo
+    NodoMatriz *llegarCabeceraHorizontal(NodoMatriz *nodo);
+    NodoMatriz *llegarCabeceraVertical(NodoMatriz *nodo);
 
 };
 

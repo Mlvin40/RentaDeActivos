@@ -5,11 +5,13 @@
 #ifndef NODOMATRIZ_H
 #define NODOMATRIZ_H
 
+#include <iostream>
+using namespace std;
 
 class NodoMatriz {
 public:
     // LO QUE CONTIENE EL NODO
-    int valor = 0;
+    string valor = "";
     //Diferentes apuntadores para las 3 dimensiones
     NodoMatriz *siguiente;
     NodoMatriz *anterior;
@@ -21,7 +23,7 @@ public:
     NodoMatriz *atras;
 
     // se inicializa el nodo con los apuntadores en null
-    NodoMatriz(int valor);
+    NodoMatriz(string valor);
 
 };
 

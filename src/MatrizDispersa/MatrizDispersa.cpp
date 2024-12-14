@@ -23,7 +23,59 @@ bool MatrizDispersa::estaVacia() {
     return false;
 }
 
-NodoMatriz *MatrizDispersa::cabeceraHorizontal(int valor) {
+// Metodo para insertar un valor en la matriz dispersa
+// el departamento es la cabecera horizontal y la empresa es la cabecera vertical
+void MatrizDispersa::insertarValor(string valor, string departamento, string empresa) {
+
+    //Inicializar las cabeceras horizontales y verticales
+    NodoMatriz *cabeceraH = nullptr;
+    NodoMatriz *cabeceraV = nullptr;
+
+    //Cuando la matriz esta vacia se inserta el primer nodo entre las cabeceras
+    if (estaVacia())
+    {
+        cabeceraH = insertarCabeceraHorizontal(departamento);
+        cabeceraV = insertarCabeceraVertical(empresa);
+        insertarAlFinal(valor, cabeceraH, cabeceraV);
+        return;
+    }
+
+    //Devuelve las cabeceras si ya existe una cabecera con el valor
+    cabeceraH = cabeceraHorizontal(departamento);
+    cabeceraV = cabeceraVertical(empresa);
+
+
+    // Si no existe la cabecera se inserta la cabecera y el valor
+    if (cabeceraH == nullptr && cabeceraV == nullptr)
+    {
+        cabeceraH = insertarCabeceraHorizontal(departamento);
+        cabeceraV = insertarCabeceraVertical(empresa);
+        insertarAlFinal(valor, cabeceraH, cabeceraV);
+        return;
+    }
+
+    if (cabeceraH == nullptr)
+    {
+        cabeceraH = insertarCabeceraHorizontal(departamento);
+
+        insertarAlFinal(valor, cabeceraH, nodoCabeceraVertical);
+        return;
+    }
+
+    if (cabeceraV == nullptr)
+    {
+        cabeceraV = insertarCabeceraVertical(empresa);
+        insertarAlFinal(valor, nodoCabeceraHorizontal, cabeceraV);
+        return;
+    }
+
+
+
+
+
+}
+
+NodoMatriz *MatrizDispersa::cabeceraHorizontal(string valor) {
     if (estaVacia())
     {
         return nullptr;
@@ -42,7 +94,7 @@ NodoMatriz *MatrizDispersa::cabeceraHorizontal(int valor) {
 
 }
 
-NodoMatriz *MatrizDispersa::cabeceraVertical(int valor) {
+NodoMatriz *MatrizDispersa::cabeceraVertical(string valor) {
     if (estaVacia())
     {
         return nullptr;
@@ -59,14 +111,14 @@ NodoMatriz *MatrizDispersa::cabeceraVertical(int valor) {
 }
 
 // Metodo para insertar una cabecera vertical en la matriz dispersa
-NodoMatriz *MatrizDispersa::insertarCabeceraHorizontal(int valor) {
+NodoMatriz *MatrizDispersa::insertarCabeceraHorizontal(string valor) {
 
     NodoMatriz *nuevaCabecera = new NodoMatriz(valor);
 
     // si la matriz esta vacia se inserta la cabecera horizontal en la matriz dispersa
-    if (nodoCabeceraHorizontal == nullptr)
+    if (this->nodoCabeceraHorizontal == nullptr)
     {
-        nodoCabeceraHorizontal = nuevaCabecera;
+        this->nodoCabeceraHorizontal = nuevaCabecera;
         return nuevaCabecera;
     }
 
@@ -83,12 +135,12 @@ NodoMatriz *MatrizDispersa::insertarCabeceraHorizontal(int valor) {
 
 }
 
-NodoMatriz *MatrizDispersa::insertarCabeceraVertical(int valor) {
+NodoMatriz *MatrizDispersa::insertarCabeceraVertical(string valor) {
     NodoMatriz *nuevaCabecera = new NodoMatriz(valor);
 
-    if (nodoCabeceraVertical == nullptr)
+    if (this->nodoCabeceraVertical == nullptr)
     {
-        nodoCabeceraVertical = nuevaCabecera;
+        this->nodoCabeceraVertical = nuevaCabecera;
         return nuevaCabecera;
     }
 
@@ -104,22 +156,8 @@ NodoMatriz *MatrizDispersa::insertarCabeceraVertical(int valor) {
     return nuevaCabecera;
 }
 
-
-// Metodo para insertar un valor en la matriz dispersa
-void MatrizDispersa::insertarValor(int valor, int cabezaHorizontal, int cabezaVertical) {
-
-    //Cuando la matriz esta vacia se inserta el primer nodo entre las cabeceras
-    if (estaVacia())
-    {
-        NodoMatriz *nodoCabeceraHorizontal = insertarCabeceraHorizontal(cabezaHorizontal);
-        NodoMatriz *nodoCabeceraVertical = insertarCabeceraVertical(cabezaVertical);
-        insertarAlFinal(valor, nodoCabeceraHorizontal, nodoCabeceraVertical);
-    }
-}
-
-
 // Metodo para insertar un valor al final de la matriz dispersa
-void MatrizDispersa::insertarAlFinal(int valor, NodoMatriz* cabezaHorizontal, NodoMatriz* cabezaVertical){
+void MatrizDispersa::insertarAlFinal(string valor, NodoMatriz* cabezaHorizontal, NodoMatriz* cabezaVertical){
     NodoMatriz *usuarioNuevo = new NodoMatriz(valor);
 
     NodoMatriz *auxiliarHorizontal = cabezaHorizontal;
@@ -142,4 +180,35 @@ void MatrizDispersa::insertarAlFinal(int valor, NodoMatriz* cabezaHorizontal, No
 
 }
 
+// Funciones para insertar al final de manera horizontal y en medio de manera vertical ****************************************************
 
+void MatrizDispersa::insertarAlFinalVertical(string valor, NodoMatriz *nodoHorizontal) {
+
+}
+
+void MatrizDispersa::insertarAlMedio(string valor, NodoMatriz *nodoVertical) {
+
+
+}
+
+// Metodo para llegar a la cabecera horizontal
+NodoMatriz *MatrizDispersa::llegarCabeceraHorizontal(NodoMatriz *nodo) {
+    NodoMatriz *auxiliar = nodo;
+
+    while (auxiliar->arriba != nullptr){
+        auxiliar = auxiliar->arriba;
+    }
+
+    return auxiliar;
+
+}
+
+// Metodo para llegar a la cabecera vertical
+NodoMatriz *MatrizDispersa::llegarCabeceraVertical(NodoMatriz *nodo) {
+    NodoMatriz *auxiliar = nodo;
+
+    while (auxiliar->anterior != nullptr){
+        auxiliar = auxiliar->anterior;
+    }
+    return auxiliar;
+}

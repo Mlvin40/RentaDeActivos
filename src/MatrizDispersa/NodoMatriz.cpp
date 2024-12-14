@@ -4,7 +4,7 @@
 
 #include "../../includes/MatrizDispersa/NodoMatriz.h"
 
-NodoMatriz::NodoMatriz(int valor) {
+NodoMatriz::NodoMatriz(string valor) {
     this->valor = valor;
     this->siguiente = nullptr;
     this->anterior = nullptr;

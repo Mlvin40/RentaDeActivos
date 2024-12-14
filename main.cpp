@@ -11,8 +11,9 @@ int main()
 
     MatrizDispersa *matriz_dispersa = new MatrizDispersa();
     //Simular la insercion de valores en la matriz dispersa
-    matriz_dispersa->insertarValor(5, 0, 0);
-    matriz_dispersa->insertarValor(10, 0, 1);
+    matriz_dispersa->insertarValor("Usuario1", "Guatemala", "IGSS");
+    matriz_dispersa->insertarValor("Usuario2", "Jutiapa", "IGSS");
+    matriz_dispersa->insertarValor("Usuario3", "Escuintla", "Cinepolis");
 
     return 0;
 }
