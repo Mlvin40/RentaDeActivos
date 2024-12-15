@@ -17,17 +17,21 @@ int main()
     matriz_dispersa->insertarValor("Usuario4", "Escuintla", "Max");
     matriz_dispersa->insertarValor("Usuario5", "Jutiapa", "Max");
 
-    matriz_dispersa->graficarMatriz("matriz.dot");
 
-/*
+
     // Falta probar estos casos
-    matriz_dispersa->insertarValor("Usuario6", "Jutiapa", "Cinepolis");
-    //matriz_dispersa->insertarValor("Usuario7", "Guatemala", "IGSS"); //debe de insertarse atras del usuario que esta asociado a esa empresa y departamento
+    //matriz_dispersa->insertarValor("Usuario6", "Jutiapa", "Cinepolis");
+    //****matriz_dispersa->insertarValor("Usuario7", "Guatemala", "IGSS"); //debe de insertarse atras del usuario que esta asociado a esa empresa y departamento
     matriz_dispersa->insertarValor("Usuario8", "Peten", "Cinepolis");
-    matriz_dispersa->insertarValor("Usuario9", "Escuintla", "IGSS");
-    matriz_dispersa->insertarValor("Usuario10", "Escuintla", "Cinepolis");
-*/
+    matriz_dispersa->insertarValor("Usuario10", "Totonicapan", "Vienesa");
+    //matriz_dispersa->insertarValor("Usuario9", "Escuintla", "IGSS");
+    //matriz_dispersa->insertarValor("Usuario10", "Escuintla", "Cinepolis");
+    matriz_dispersa->insertarValor("Usuario11", "Escuintla", "Vienesa");
+    matriz_dispersa->insertarValor("Usuario12", "Peten", "Vienesa");
 
+    matriz_dispersa->insertarValor("Usuario13", "Peten", "Max");
+
+    matriz_dispersa->graficarMatriz("matriz.dot");
 
     /*
      * matrizDispersa

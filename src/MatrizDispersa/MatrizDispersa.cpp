@@ -400,8 +400,40 @@ void MatrizDispersa::graficarMatriz(const std::string& nombreArchivo) {
         archivo << "}\n";
         archivo << "\n";
         auxiliarEmpresa = auxiliarEmpresa->abajo;
-    }
+    } // Finalizacion del encuadre
 
+    //Relaciones de los usuarios a todas las posibles direcciones
+    auxiliarEmpresa = nodoCabeceraVertical;
+    auxiliarUsuario = nullptr;
+
+    while (auxiliarEmpresa != nullptr){
+        auxiliarUsuario = auxiliarEmpresa->siguiente;
+
+        //hacer el primer enlace
+        archivo << auxiliarEmpresa->valor << " -> " << auxiliarUsuario->valor << ";\n";
+        archivo << auxiliarUsuario->valor << " -> " << auxiliarEmpresa->valor << ";\n";
+        while (auxiliarUsuario != nullptr){
+
+            //Ver hacia siguiente, anterior, arriba y abajo
+
+            if (auxiliarUsuario->siguiente != nullptr){
+                archivo << auxiliarUsuario->valor << " -> " << auxiliarUsuario->siguiente->valor << ";\n";
+                archivo << auxiliarUsuario->siguiente->valor << " -> " << auxiliarUsuario->valor << ";\n";
+            }
+
+            // ver hacia arriba
+            if (auxiliarUsuario->arriba != nullptr){
+                archivo << auxiliarUsuario->valor << " -> " << auxiliarUsuario->arriba->valor << ";\n";
+                archivo << auxiliarUsuario->arriba->valor << " -> " << auxiliarUsuario->valor << ";\n";
+            }
+            //salto de linea
+            archivo << "\n";
+
+            auxiliarUsuario = auxiliarUsuario->siguiente;
+        }// FIN DE LOS ENLACES DE LOS USUARIOS
+
+        auxiliarEmpresa = auxiliarEmpresa->abajo;
+    } // Finalizacion del encuadre
     //Aqui cierra el reporte
     archivo << "}\n";
     archivo.close();
