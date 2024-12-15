@@ -1,8 +1,12 @@
 # ninja log v6
-1	305	1734233307034080751	CMakeFiles/RentaActivosP1.dir/src/MatrizDispersa/NodoMatriz.cpp.o	9668b3e43bfa9449
-1	354	1733978753388910195	CMakeFiles/RentaActivosP1.dir/src/Menu.cpp.o	2e42bf91be3e9f3d
+1	301	1734244842939275679	CMakeFiles/RentaActivosP1.dir/src/ListaDoble/NodoDoble.cpp.o	e4b7cafb50a6cedf
+1	290	1734244842939275679	CMakeFiles/RentaActivosP1.dir/src/ListaDoble/LIstaDobleEnlazada.cpp.o	444329b1ce85e7b6
+1	310	1734243068487015125	CMakeFiles/RentaActivosP1.dir/main.cpp.o	3855db9bb89ec006
+301	347	1734244843239270311	RentaActivosP1	653fd346c8736394
 1	355	1734239903721525469	CMakeFiles/RentaActivosP1.dir/src/MatrizDispersa/MatrizDispersa.cpp.o	d7d5d39bc87d515c
-320	367	1734240043527133026	RentaActivosP1	55739e79f9b90239
-1	320	1734240043208136387	CMakeFiles/RentaActivosP1.dir/main.cpp.o	3855db9bb89ec006
-1	309	1734240116591344104	CMakeFiles/RentaActivosP1.dir/main.cpp.o	3855db9bb89ec006
-309	352	1734240116899340701	RentaActivosP1	55739e79f9b90239
+1	354	1733978753388910195	CMakeFiles/RentaActivosP1.dir/src/Menu.cpp.o	2e42bf91be3e9f3d
+1	305	1734233307034080751	CMakeFiles/RentaActivosP1.dir/src/MatrizDispersa/NodoMatriz.cpp.o	9668b3e43bfa9449
+0	14	1734246015543338198	build.ninja	104a6279bc377ef7
+0	43	1734246015547338130	RentaActivosP1	55739e79f9b90239
+1	339	1734246730982554042	CMakeFiles/RentaActivosP1.dir/main.cpp.o	3855db9bb89ec006
+339	384	1734246731320548526	RentaActivosP1	55739e79f9b90239

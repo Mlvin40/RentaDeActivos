@@ -10,4 +10,6 @@ add_executable(RentaActivosP1 main.cpp
         includes/MatrizDispersa/MatrizDispersa.h
         src/MatrizDispersa/MatrizDispersa.cpp
         src/MatrizDispersa/NodoMatriz.cpp
+        includes/ListaDoble/NodoDoble.h
+        includes/ListaDoble/ListaDobleEnlazada.h
 )

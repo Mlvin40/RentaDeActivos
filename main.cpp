@@ -2,6 +2,8 @@
 #include "includes/Menu.h"
 #include "includes/MatrizDispersa/MatrizDispersa.h"
 
+#include "includes/ListaDoble/ListaDobleEnlazada.h"
+
 int main()
 {
     // Crear un objeto de la clase Menu en el heap
@@ -27,11 +29,19 @@ int main()
     //matriz_dispersa->insertarValor("Usuario9", "Escuintla", "IGSS");
     //matriz_dispersa->insertarValor("Usuario10", "Escuintla", "Cinepolis");
     matriz_dispersa->insertarValor("Usuario11", "Escuintla", "Vienesa");
+    matriz_dispersa->insertarValor("Usuario13", "Jutiapa", "Vienesa");
     matriz_dispersa->insertarValor("Usuario12", "Peten", "Vienesa");
-
-    matriz_dispersa->insertarValor("Usuario13", "Peten", "Max");
+    //Revisar matriz_dispersa->insertarValor("Usuario14", "Guatemala", "Vienesa");
+    matriz_dispersa->insertarValor("Usuario15", "Peten", "Max");
 
     matriz_dispersa->graficarMatriz("matriz.dot");
+
+    //Probar la lista doble enlazada de tipo string
+    ListaDobleEnlazada<std::string> *lista_doble = new ListaDobleEnlazada<std::string>();
+    lista_doble->agregarElemento("Elemento1");
+    lista_doble->agregarElemento("Elemento2");
+    lista_doble->agregarElemento("Elemento3");
+
 
     /*
      * matrizDispersa
