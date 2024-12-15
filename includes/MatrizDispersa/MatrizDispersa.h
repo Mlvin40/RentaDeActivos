@@ -17,7 +17,6 @@ class MatrizDispersa {
 public:
     // cabecera horizontal
     NodoMatriz *nodoCabeceraHorizontal;
-
     // cabecera vertical
     NodoMatriz *nodoCabeceraVertical;
 
@@ -34,22 +33,33 @@ public:
 
     NodoMatriz *insertarCabeceraHorizontal(string valor);
     NodoMatriz *insertarCabeceraVertical(string valor);
+
+
     void insertarValor(string valor, string cabezaHorizontal, string cabezaVertical);
-    void insertarAlFinal(string valor, NodoMatriz *cabezaHorizontal, NodoMatriz *cabezaVertical);
+    void insertarAlFinal(NodoMatriz *usuarioNuevo, NodoMatriz *cabezaHorizontal, NodoMatriz *cabezaVertical);
 
+    void insertarAlFinalVertical(NodoMatriz *usuarioNuevo, NodoMatriz *nodoVertical);
+    void insertarAlMedioVertical(NodoMatriz *usuarioNuevo, NodoMatriz *vertical);
+    void insertarAlMedioHorizontal(NodoMatriz *usuarioNuevo, NodoMatriz *horizontal);
+    void insertarAlFinalHorizontal(NodoMatriz *usuarioNuevo, NodoMatriz *nodoHorizontal);
 
-    void insertarAlFinalVertical(string valor, NodoMatriz *nodoHorizontal);
-    void insertarAlMedio(string valor, NodoMatriz *nodoVertical);
 
     //Metodos que llegue hasta la cabecera horizontal y vertical de cualquier nodo
     NodoMatriz *llegarCabeceraHorizontal(NodoMatriz *nodo);
     NodoMatriz *llegarCabeceraVertical(NodoMatriz *nodo);
 
+
+    bool masAbajo(NodoMatriz *cabeceraV, string valor);
+    bool masDerecha(NodoMatriz *cabeceraH, string valor);
+
     //Insertar un valor en cabeceras que ya existen y ya tienen un usuario
     void insertarValorCabecerasExistentes(string valor, string departamento, string institucion);
 
-};
 
+    //Ultimos metodos
+    void graficarMatriz(const string& nombreArchivo);
+    NodoMatriz* buscarNodo(const std::string& cabeceraHorizontal, const std::string& cabeceraVertical);
+};
 
 
 #endif //MATRIZDISPERSA_H

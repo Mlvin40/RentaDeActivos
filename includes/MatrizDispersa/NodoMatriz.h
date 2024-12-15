@@ -12,6 +12,8 @@ class NodoMatriz {
 public:
     // LO QUE CONTIENE EL NODO
     string valor = "";
+    int nivel = 0; //importante para el reporte
+
     //Diferentes apuntadores para las 3 dimensiones
     NodoMatriz *siguiente;
     NodoMatriz *anterior;

@@ -1,0 +1,36 @@
+digraph G {
+    node [shape=box];
+    n0 [label = "admin" group=1];
+Guatemala[label = "Guatemala" group=2];
+Jutiapa[label = "Jutiapa" group=3];
+Escuintla[label = "Escuintla" group=4];
+n0 -> Guatemala;
+Guatemala -> Jutiapa;
+Jutiapa -> Guatemala;
+Jutiapa -> Escuintla;
+Escuintla -> Jutiapa;
+IGSS[label = "IGSS" group=1];
+Cinepolis[label = "Cinepolis" group=1];
+Max[label = "Max" group=1];
+n0 -> IGSS;
+IGSS -> Cinepolis;
+Cinepolis -> IGSS;
+Cinepolis -> Max;
+Max -> Cinepolis;
+{rank=same; n0; Guatemala; Jutiapa; Escuintla; }
+
+IGSS[label = "IGSS" group=1];
+Usuario1[label = "Usuario1" group=2];
+Usuario2[label = "Usuario2" group=3];
+Cinepolis[label = "Cinepolis" group=0];
+Usuario3[label = "Usuario3" group=2];
+Max[label = "Max" group=0];
+Usuario5[label = "Usuario5" group=3];
+Usuario4[label = "Usuario4" group=4];
+{rank=same;IGSS; Usuario1; Usuario2; }
+
+{rank=same;Cinepolis; Usuario3; }
+
+{rank=same;Max; Usuario5; Usuario4; }
+
+}
