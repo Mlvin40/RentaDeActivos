@@ -448,6 +448,7 @@ void MatrizDispersa::graficarMatriz(const std::string& nombreArchivo) {
     }
     pruebaArchivo.close();
 
+
     std::cout << "Ahora puedes usar Graphviz para generar la imagen usando el archivo DOT." << std::endl;
     std::cout << "Ejemplo de comando: dot -Tpng " << nombreArchivo << " -o grafo.png" << std::endl;
 }

@@ -1,8 +1,8 @@
 #include <iostream>
 #include "includes/Menu.h"
 #include "includes/MatrizDispersa/MatrizDispersa.h"
-
 #include "includes/ListaDoble/ListaDobleEnlazada.h"
+#include "includes/Arbol/ArbolAVL.h"
 
 int main()
 {
@@ -18,7 +18,6 @@ int main()
     matriz_dispersa->insertarValor("Usuario3", "Guatemala", "Cinepolis");
     matriz_dispersa->insertarValor("Usuario4", "Escuintla", "Max");
     matriz_dispersa->insertarValor("Usuario5", "Jutiapa", "Max");
-
 
 
     // Falta probar estos casos
@@ -37,11 +36,18 @@ int main()
     matriz_dispersa->graficarMatriz("matriz.dot");
 
     //Probar la lista doble enlazada de tipo string
-    ListaDobleEnlazada<std::string> *lista_doble = new ListaDobleEnlazada<std::string>();
-    lista_doble->agregarElemento("Elemento1");
-    lista_doble->agregarElemento("Elemento2");
-    lista_doble->agregarElemento("Elemento3");
 
+    ArbolAVL *arbol = new ArbolAVL();
+    arbol->insertar(10);
+    arbol->insertar(5);
+    arbol->insertar(15);
+    arbol->insertar(1);
+    arbol->insertar(3);
+    arbol->insertar(0);
+    arbol->insertar(6);
+    arbol->insertar(12);
+    arbol->insertar(14);
+    arbol->insertar(11);
 
     /*
      * matrizDispersa
