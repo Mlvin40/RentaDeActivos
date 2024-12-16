@@ -38,21 +38,46 @@ int main()
     //Probar la lista doble enlazada de tipo string
 
     ArbolAVL *arbol = new ArbolAVL();
+    /*arbol->insertar(10);
+    arbol->insertar(5);
+    arbol->insertar(4);
+    arbol->insertar(6);
+    arbol->insertar(15);
+    arbol->insertar(14);
+    arbol->insertar(0);
+    arbol->insertar(1);
+    arbol->insertar(2);
+    arbol->insertar(3);
+    arbol->insertar(7);
+    arbol->insertar(8);
+    arbol->insertar(9);
+    arbol->insertar(11);
+    arbol->insertar(12);
+    arbol->insertar(13);
+    arbol->insertar(16);
+    arbol->insertar(17);
+    arbol->insertar(68);
+    arbol->insertar(69);
+    arbol->insertar(70);*/
+
+    // insertar los valores 3 1 0 10 5 4 6 12 11 14
+    arbol->insertar(3);
+    arbol->insertar(1);
+    arbol->insertar(0);
     arbol->insertar(10);
     arbol->insertar(5);
-    arbol->insertar(15);
-    arbol->insertar(1);
-    arbol->insertar(3);
-    arbol->insertar(0);
+    arbol->insertar(4);
     arbol->insertar(6);
     arbol->insertar(12);
-    arbol->insertar(14);
     arbol->insertar(11);
+    arbol->insertar(14);
+    arbol->insertar(16);
+    arbol->insertar(21);
+    arbol->insertar(22);
+    arbol->insertar(23);
 
-    /*
-     * matrizDispersa
-     * listaUsuarios
-     */
+
+    arbol->graficarArbol("arbol.dot");
     return 0;
 }
 
