@@ -37,22 +37,18 @@ Usuario3[label = "Usuario3" group=2];
 Max[label = "Max" group=0];
 Usuario5[label = "Usuario5" group=3];
 Usuario4[label = "Usuario4" group=4];
-Usuario15[label = "Usuario15" group=1];
-Usuario12[label = "Usuario12" group=5];
-Usuario10[label = "Usuario10" group=6];
 Vienesa[label = "Vienesa" group=0];
 Usuario13[label = "Usuario13" group=3];
 Usuario11[label = "Usuario11" group=4];
-Usuario15[label = "Usuario15" group=1];
 Usuario12[label = "Usuario12" group=5];
 Usuario10[label = "Usuario10" group=6];
 {rank=same;IGSS; Usuario1; Usuario2; Usuario8; }
 
 {rank=same;Cinepolis; Usuario3; }
 
-{rank=same;Max; Usuario5; Usuario4; Usuario15; Usuario12; Usuario10; }
+{rank=same;Max; Usuario5; Usuario4; }
 
-{rank=same;Vienesa; Usuario13; Usuario11; Usuario15; Usuario12; Usuario10; }
+{rank=same;Vienesa; Usuario13; Usuario11; Usuario12; Usuario10; }
 
 IGSS -> Usuario1;
 Usuario1 -> IGSS;
@@ -81,21 +77,8 @@ Usuario4 -> Usuario5;
 Usuario5 -> Usuario2;
 Usuario2 -> Usuario5;
 
-Usuario4 -> Usuario15;
-Usuario15 -> Usuario4;
 Usuario4 -> Escuintla;
 Escuintla -> Usuario4;
-
-Usuario15 -> Usuario12;
-Usuario12 -> Usuario15;
-
-Usuario12 -> Usuario10;
-Usuario10 -> Usuario12;
-Usuario12 -> Usuario8;
-Usuario8 -> Usuario12;
-
-Usuario10 -> Totonicapan;
-Totonicapan -> Usuario10;
 
 Vienesa -> Usuario13;
 Usuario13 -> Vienesa;
@@ -104,13 +87,10 @@ Usuario11 -> Usuario13;
 Usuario13 -> Usuario5;
 Usuario5 -> Usuario13;
 
-Usuario11 -> Usuario15;
-Usuario15 -> Usuario11;
+Usuario11 -> Usuario12;
+Usuario12 -> Usuario11;
 Usuario11 -> Usuario4;
 Usuario4 -> Usuario11;
-
-Usuario15 -> Usuario12;
-Usuario12 -> Usuario15;
 
 Usuario12 -> Usuario10;
 Usuario10 -> Usuario12;

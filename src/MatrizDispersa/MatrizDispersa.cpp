@@ -71,6 +71,29 @@ void MatrizDispersa::insertarValor(string valor, string departamento, string emp
         return;
     }
 
+
+    /********************************************************************************************************************
+     * Si ya existen las cabeceras se inserta el valor en las cabeceras existentes
+     * *****************************************************************************************************************/
+    NodoMatriz *existente = buscarNodo(departamento, empresa);
+    if (existente != nullptr) {
+        cout<<"El usuario: "<<valor<<"Se agregara adelante o atras del usuario: "<<existente->valor<<endl;
+        cout<<"1. Adelante"<<endl;
+        cout<<"2. Atras"<<endl;
+        int opcion;
+        cin>>opcion;
+        if (opcion == 1)
+        {
+            // Insertar en la dimensión "adelante"
+            insertarAdelante(existente, valor);
+            return;
+        } else{
+            // Insertar en la dimensión "atras"
+            insertarAtras(existente, valor);
+            return;
+        }
+    }
+
     // si ya existen las cabeceras se inserta el valor en las cabeceras existentes
     //insertarValorCabecerasExistentes(nuevoUsuario, departamento, empresa);
 
@@ -118,6 +141,28 @@ void MatrizDispersa::insertarValor(string valor, string departamento, string emp
     }else{
         insertarAlMedioVertical(nuevoUsuario, auxiliarV);
     }
+}
+
+NodoMatriz *MatrizDispersa::buscarNodo(string departamento, string empresa) {
+    NodoMatriz *auxiliarEmpresa = nodoCabeceraVertical;
+
+    //Recorrer la lista de cabeceras verticales hasta que encuetre uno con el nombre de la empresa
+    while (auxiliarEmpresa != nullptr){
+        if (auxiliarEmpresa->valor == empresa)
+        {
+            //Ahora realizar un while hasta su ultimo nodo siguiente e ir comparando con el departamento
+            NodoMatriz *auxiliarDepartamento = auxiliarEmpresa->siguiente;
+            while (auxiliarDepartamento != nullptr){
+                if (llegarCabeceraHorizontal(auxiliarDepartamento)->valor == departamento)
+                {
+                    return auxiliarDepartamento;
+                }
+                auxiliarDepartamento = auxiliarDepartamento->siguiente;
+            }
+        }
+        auxiliarEmpresa = auxiliarEmpresa->siguiente;
+    }
+    return nullptr;
 }
 
 NodoMatriz *MatrizDispersa::cabeceraHorizontal(string valor) {
@@ -297,6 +342,67 @@ bool MatrizDispersa::masDerecha(NodoMatriz *cabeceraH, string valor) {
     }
     return false;
 }
+
+/*******************************************************************************************************************
+ * Metodo para insertar un valor en las cabeceras que ya existen
+ * *****************************************************************************************************************/
+
+void MatrizDispersa::insertarAdelante(NodoMatriz *usuarioExistente, string nuevoUsuario) {
+
+    NodoMatriz *nuevoNodo = new NodoMatriz(nuevoUsuario);
+    NodoMatriz *auxiliar = usuarioExistente; // este para despues copiar todos sus punteros y no perder la referencia
+
+    auxiliar = usuarioExistente;
+    usuarioExistente = nuevoNodo;
+
+    //Cambiar todas las referencias que tenia el nodo que se envio para atras
+    //para las referencias de siguiente y anterior
+    nuevoNodo->siguiente = auxiliar->siguiente;
+    auxiliar->siguiente->anterior = nuevoNodo;
+
+    //para las referencias de anterior y siguiente
+    nuevoNodo->anterior = auxiliar->anterior;
+    auxiliar->anterior->siguiente = nuevoNodo;
+
+    //para las referencias de arriba y abajo
+    nuevoNodo->arriba = auxiliar->arriba;
+    auxiliar->arriba->abajo = nuevoNodo;
+
+    //para las referencias de abajo y arriba
+    nuevoNodo->abajo = auxiliar->abajo;
+    auxiliar->abajo->arriba = nuevoNodo;
+
+    //limpiar las referencias del nodo que se envio para atras
+    auxiliar->arriba = nullptr;
+    auxiliar->abajo = nullptr;
+    auxiliar->siguiente = nullptr;
+    auxiliar->anterior = nullptr;
+
+    nuevoNodo->atras = auxiliar;
+    auxiliar->adelante = nuevoNodo;
+}
+
+void MatrizDispersa::insertarAtras(NodoMatriz *usuarioExistente, string nuevoUsuario) {
+
+    NodoMatriz *nuevoNodo = new NodoMatriz(nuevoUsuario);
+
+    if (usuarioExistente->atras == nullptr) {
+        // Si no hay nodos atrás, enlazar directamente
+        usuarioExistente->atras = nuevoNodo;
+        nuevoNodo->adelante = usuarioExistente;
+    } else {
+        // Si ya hay nodos atrás, recorrer hasta el inicio
+        NodoMatriz *aux = usuarioExistente->atras;
+        while (aux->atras != nullptr) {
+            aux = aux->atras;
+        }
+        aux->atras = nuevoNodo;
+        nuevoNodo->adelante = aux;
+    }
+
+}
+
+
 
 //********************************************************************************************************************
 //********************************************************************************************************************

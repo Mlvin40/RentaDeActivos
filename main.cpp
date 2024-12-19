@@ -30,13 +30,18 @@ int main()
     matriz_dispersa->insertarValor("Usuario13", "Jutiapa", "Vienesa");
     matriz_dispersa->insertarValor("Usuario12", "Peten", "Vienesa");
     //Revisar matriz_dispersa->insertarValor("Usuario14", "Guatemala", "Vienesa");
-    matriz_dispersa->insertarValor("Usuario15", "Peten", "Max");
+    //matriz_dispersa->insertarValor("Usuario15", "Peten", "Max");
 
     matriz_dispersa->graficarMatriz("matriz.dot");
 
-    //Probar la lista doble enlazada de tipo string
+    matriz_dispersa->insertarValor("PRUEBA", "Guatemala", "IGSS");
+    matriz_dispersa->graficarMatriz("matriz.dot");
 
-    ArbolAVL *arbol = new ArbolAVL();
+    matriz_dispersa->insertarValor("OtroJil", "Guatemala", "IGSS");
+
+    matriz_dispersa->graficarMatriz("matriz.dot");
+
+    /*ArbolAVL *arbol = new ArbolAVL();
     //Insertar los valores 0,1,3,10,5,4,6,11,12,14
     arbol->insertar(0);
     arbol->insertar(1);
@@ -53,9 +58,7 @@ int main()
     arbol->eliminar(3);
     arbol->eliminar(12);
     arbol->eliminar(6);
-
-
-    arbol->graficarArbol("arbol.dot");
+    arbol->graficarArbol("arbol.dot");*/
     return 0;
 }
 

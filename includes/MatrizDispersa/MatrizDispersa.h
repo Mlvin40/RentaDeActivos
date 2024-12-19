@@ -6,6 +6,8 @@
 #define MATRIZDISPERSA_H
 
 #include "NodoMatriz.h"
+#include <iostream>
+using namespace std;
 
 
 //Caso de agregar atras y adelante de un nodo
@@ -58,7 +60,12 @@ public:
 
     //Ultimos metodos
     void graficarMatriz(const string& nombreArchivo);
-    NodoMatriz* buscarNodo(const std::string& cabeceraHorizontal, const std::string& cabeceraVertical);
+    NodoMatriz* buscarNodo(string departamento, string empresa);
+
+    void insertarAdelante(NodoMatriz *usuarioExistente, string nuevoUsuario);
+    void insertarAtras(NodoMatriz *nodo, string nuevoUsuario);
+
+
 };
 
 
