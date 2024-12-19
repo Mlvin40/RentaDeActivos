@@ -25,8 +25,9 @@ private:
     void rotacionIzquierdaDerecha(NodoAVL *&nodo);
     void rotacionDerechaIzquierda(NodoAVL *&nodo);
 
+    void eliminar(int valor, NodoAVL *&raiz);
 
-
+    NodoAVL *masDerecha(NodoAVL *nodo);
 
 
 public:
@@ -46,10 +47,6 @@ public:
 
     void graficarArbol(const std::string& nombreArchivo);
     void graficarNodo(std::ofstream& archivo, NodoAVL* nodo);
-
-
-
-
 
 
 

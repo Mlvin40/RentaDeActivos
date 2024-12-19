@@ -37,14 +37,14 @@ void ArbolAVL::insertar(NodoAVL* valor, NodoAVL *&raiz){
     raiz->setFactorEquilibrio(factEquilibrio(raiz));
 
     if (raiz->getFactorEquilibrio() < -1){
-        if (factEquilibrio(raiz->getIzquierdo()) > 0)
+        if (raiz->getIzquierdo()->getFactorEquilibrio() > 0)
         {
             //Rotacion doble
-            rotacionDerechaIzquierda(raiz);
+            rotacionIzquierdaDerecha(raiz);
             return;
         }
         // Rotacion Simple
-        rotacionIzquierda(raiz);
+        rotacionDerecha(raiz);
         return;
     }
 
@@ -53,14 +53,13 @@ void ArbolAVL::insertar(NodoAVL* valor, NodoAVL *&raiz){
         if (raiz->getDerecho()->getFactorEquilibrio() < 0)
         {
             //Rotacion doble
-            rotacionIzquierdaDerecha(raiz);
+            rotacionDerechaIzquierda(raiz);
             return;
         }
         // Rotacion Simple
-        rotacionDerecha(raiz);
+        rotacionIzquierda(raiz);
 
     }
-
 }
 
 int ArbolAVL::alturaMax(NodoAVL* nodo){
@@ -82,7 +81,7 @@ int ArbolAVL::factEquilibrio(NodoAVL* nodo){
 }
 
 
-void ArbolAVL::rotacionIzquierda(NodoAVL *&nodo){
+void ArbolAVL::rotacionDerecha(NodoAVL *&nodo){
     NodoAVL *aux = nodo->getIzquierdo();
 
     nodo-> getIzquierdo() = aux->getDerecho();
@@ -95,11 +94,9 @@ void ArbolAVL::rotacionIzquierda(NodoAVL *&nodo){
 
     if (nodo->getIzquierdo() == nullptr) return ; // Si no tiene hijo izquierdo
     nodo->getIzquierdo()->setFactorEquilibrio(factEquilibrio(nodo->getIzquierdo()));
-
-
 }
 
-void ArbolAVL::rotacionDerecha(NodoAVL *&nodo){
+void ArbolAVL::rotacionIzquierda(NodoAVL *&nodo){
     NodoAVL *aux = nodo->getDerecho();
 
     nodo-> getDerecho() = aux->getIzquierdo();
@@ -115,17 +112,109 @@ void ArbolAVL::rotacionDerecha(NodoAVL *&nodo){
 
 }
 
-void ArbolAVL::rotacionIzquierdaDerecha(NodoAVL *&nodo){
-    rotacionIzquierda(nodo->getDerecho());
-    rotacionDerecha(nodo);
-
-}
-
 void ArbolAVL::rotacionDerechaIzquierda(NodoAVL *&nodo){
-    rotacionDerecha(nodo->getIzquierdo());
+    rotacionDerecha(nodo->getDerecho());
     rotacionIzquierda(nodo);
+
 }
 
+void ArbolAVL::rotacionIzquierdaDerecha(NodoAVL *&nodo){
+    rotacionIzquierda(nodo->getIzquierdo());
+    rotacionDerecha(nodo);
+}
+
+NodoAVL *ArbolAVL::masDerecha(NodoAVL *nodo){
+    if (nodo->getDerecho() == nullptr){
+        return nodo;
+    }
+    return masDerecha(nodo->getDerecho());
+}
+
+// este metodo utiliza el metodo privado que se encarga de eliminar un nodo del arbol
+void::ArbolAVL::eliminar(int valor){
+    eliminar(valor, this->raiz);
+}
+
+bool ArbolAVL::esHoja(NodoAVL* nodo)
+{
+ // Si el nodo no tiene hijos es una hoja
+    return nodo->getIzquierdo() == nullptr && nodo->getDerecho() == nullptr;
+}
+
+void::ArbolAVL::eliminar(int valor, NodoAVL *&raiz)
+{
+    if (raiz == nullptr){ // esto significa que el valor no existe dentro del arbol
+        std::cout << "El valor no existe en el arbol" << std::endl;
+        return;
+    }
+
+    // Al eliminar cualquier nodo se debe recalcular los factores de equilibrio
+    if (valor == raiz->getValor()){  // si el valor es menor que el valor de la raiz para saber si se va a la izquierda o derecha
+
+        if (esHoja(raiz)){ // Si la raiz es una hoja
+            raiz = nullptr;
+            return;
+        }
+
+        //Si no es una hoja
+        if (raiz->getIzquierdo() == nullptr)
+        {
+            raiz = raiz->getDerecho();
+            return;
+        }
+
+        if (raiz->getDerecho() == nullptr)
+        {
+            raiz = raiz->getIzquierdo();
+            return;
+        }
+
+        //si ninguno de los dos hijos es nulo se debe buscar el nodo mas a la derecha del subarbol izquierdo
+        NodoAVL *aux = masDerecha(raiz->getIzquierdo());
+        raiz->setValor(aux->getValor()); // Simplemete se cambia el valor del nodo a eliminar por el valor del nodo mas a la derecha
+
+
+        eliminar(aux->getValor(), raiz->getIzquierdo()); // se elimina el nodo mas a la derecha
+        valor = raiz->getValor(); // se cambia el valor a eliminar por el valor del nodo mas a la derecha
+        //********************//
+
+    }
+    if (valor < raiz->getValor()){
+        eliminar(valor, raiz->getIzquierdo());
+    }
+
+    else{
+        eliminar(valor, raiz->getDerecho());
+    }
+
+    raiz->setFactorEquilibrio(factEquilibrio(raiz));
+
+    if (raiz->getFactorEquilibrio() < -1){
+        if (raiz->getIzquierdo()->getFactorEquilibrio() > 0)
+        {
+            //Rotacion doble
+            rotacionIzquierdaDerecha(raiz);
+            return;
+        }
+        // Rotacion Simple
+        rotacionDerecha(raiz);
+        return;
+    }
+
+    if (raiz->getFactorEquilibrio() > 1) // Significa que esta desequilibrado a la derecha
+    {
+        if (raiz->getDerecho()->getFactorEquilibrio() < 0)
+        {
+            //Rotacion doble
+            rotacionDerechaIzquierda(raiz);
+            return;
+        }
+        // Rotacion Simple
+        rotacionIzquierda(raiz);
+        return;
+    }
+
+}
 
 // ********************************************************************************************************************
 // REPORTE DEL ARBOL AVL
@@ -149,8 +238,6 @@ void ArbolAVL::graficarArbol(const std::string& nombreArchivo) {
     archivo.close();
 
     std::cout << "Archivo DOT creado exitosamente: " << nombreArchivo << std::endl;
-    std::cout << "Ahora puedes usar Graphviz para generar la imagen.\n"
-              << "Ejemplo de comando: dot -Tpng " << nombreArchivo << " -o arbol.png\n";
 }
 
 void ArbolAVL::graficarNodo(std::ofstream& archivo, NodoAVL* nodo) {
