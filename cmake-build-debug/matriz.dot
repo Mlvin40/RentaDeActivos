@@ -29,7 +29,7 @@ igss[label = "igss" group=1];
 elian_estrada[label = "elian_estrada" group=2];
 max[label = "max" group=0];
 casimiro[label = "casimiro" group=2];
-juanito[label = "juanito" group=3];
+incrediboy[label = "incrediboy" group=3];
 usac[label = "usac" group=0];
 juanma[label = "juanma" group=2];
 azurdia[label = "azurdia" group=3];
@@ -39,7 +39,7 @@ fuego03[label = "fuego03" group=3];
 mafer[label = "mafer" group=5];
 {rank=same;igss; elian_estrada; }
 
-{rank=same;max; casimiro; juanito; }
+{rank=same;max; casimiro; incrediboy; }
 
 {rank=same;usac; juanma; azurdia; alcachofa; }
 
@@ -52,13 +52,13 @@ guatemala -> elian_estrada;
 
 max -> casimiro;
 casimiro -> max;
-casimiro -> juanito;
-juanito -> casimiro;
+casimiro -> incrediboy;
+incrediboy -> casimiro;
 casimiro -> elian_estrada;
 elian_estrada -> casimiro;
 
-juanito -> jutiapa;
-jutiapa -> juanito;
+incrediboy -> jutiapa;
+jutiapa -> incrediboy;
 
 usac -> juanma;
 juanma -> usac;
@@ -69,8 +69,8 @@ casimiro -> juanma;
 
 azurdia -> alcachofa;
 alcachofa -> azurdia;
-azurdia -> juanito;
-juanito -> azurdia;
+azurdia -> incrediboy;
+incrediboy -> azurdia;
 
 alcachofa -> jalapa;
 jalapa -> alcachofa;

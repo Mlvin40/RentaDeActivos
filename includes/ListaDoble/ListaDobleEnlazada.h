@@ -25,6 +25,7 @@ public:
     void agregarElemento(T* valor);
     void eliminarUltimo();
     T* obtenerContenido(int index) const;
+    int getTamano();
 };
 
 #include "../../src/ListaDoble/ListaDobleEnlazada.tpp"

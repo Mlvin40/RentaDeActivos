@@ -31,6 +31,8 @@ public:
     string getContrasena();
     string getUsername();
 
+    bool verificarContrasena(const std::string& contrasenaIngresada) const;
+
 
 
     // Implementar metodos de la clase

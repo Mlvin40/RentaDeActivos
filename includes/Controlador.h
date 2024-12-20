@@ -22,15 +22,29 @@ private:
     ListaDobleEnlazada<RentaActivo>* listaTransacciones;
     Usuario *usuarioLogueado;
 
-
-    void iniciarMenu();
+    void iniciarLogin();
     void usuariosGrabados();
+    void iniciarMenuAdministrador();
+    void iniciarMenuUsuario();
+    void separador();
+
+    //********************************************************************************************************************
+    //Para el usuario administrador
+    void registrarUsuario();
+    void reporteMatrizDispersa();
+    void reporteActivosDisponiblesDepartamento();
+    void reporteActivosDisponiblesEmpresa();
+    void reporteTransacciones();
+    void reporteActivosUsuario();
+    void activosRentadosUsuario();
+    void ordenarTransaccion();
+    //********************************************************************************************************************
+
 
 public:
     //CONSTRUCTOR
     Controlador();
     void iniciarSistema();
-
 };
 
 

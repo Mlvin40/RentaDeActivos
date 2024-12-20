@@ -5,11 +5,13 @@
 #ifndef MENU_H
 #define MENU_H
 
+
 #include <iostream>
+#include <string>
 using namespace std;
 
-class Menu
-{
+class Menu{
+
 private:
     string mensajeBienvenida = "Bienvenido al sistema de ventas";
     string mensajeDespedida = "Gracias por usar el sistema de ventas";
@@ -18,13 +20,7 @@ public:
     Menu();
     ~Menu();
 
-    //Metodos
-    void iniciarMenu();
     void finalizarMenu();
-
-    //setter
-    void setMensajeBienvenida(string mensaje);
-    void setMensajeDespedida(string mensaje);
 
     //getter
     string getMensajeBienvenida();

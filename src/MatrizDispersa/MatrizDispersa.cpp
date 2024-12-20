@@ -26,7 +26,6 @@ bool MatrizDispersa::estaVacia() {
 // Metodo para insertar un valor en la matriz dispersa
 // el departamento es la cabecera horizontal y la empresa es la cabecera vertical
 void MatrizDispersa::insertarValor(string valor, string departamento, string empresa) {
-
     NodoMatriz *nuevoUsuario = new NodoMatriz(valor);
 
     //Inicializar las cabeceras horizontales y verticales
@@ -59,7 +58,6 @@ void MatrizDispersa::insertarValor(string valor, string departamento, string emp
     if (cabeceraH == nullptr)
     {
         cabeceraH = insertarCabeceraHorizontal(departamento);
-
         insertarAlFinal(nuevoUsuario, cabeceraH, nodoCabeceraVertical);
         return;
     }
@@ -70,7 +68,6 @@ void MatrizDispersa::insertarValor(string valor, string departamento, string emp
         insertarAlFinal(nuevoUsuario, nodoCabeceraHorizontal, cabeceraV);
         return;
     }
-
 
     /********************************************************************************************************************
      * Si ya existen las cabeceras se inserta el valor en las cabeceras existentes

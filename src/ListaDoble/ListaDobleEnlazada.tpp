@@ -70,3 +70,9 @@ NodoDoble<T>* ListaDobleEnlazada<T>::obtenerNodoRetrocediendo(int index) const {
     }
     return actual;
 }
+
+//METODO PARA OBTENER EL TAMAÑO DE LA LISTA
+template <typename T>
+int ListaDobleEnlazada<T>::getTamano() {
+    return tamano;
+}

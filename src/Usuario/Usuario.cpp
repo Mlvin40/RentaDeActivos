@@ -38,6 +38,10 @@ string Usuario::getUsername() {
     return this->username;
 }
 
+bool Usuario::verificarContrasena(const std::string& contrasenaIngresada) const {
+    return this->contrasena == contrasenaIngresada;
+}
+
 // Implementar metodos de la clase
 
 
