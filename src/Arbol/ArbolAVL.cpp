@@ -235,10 +235,36 @@ NodoAVL* ArbolAVL::buscar(const std::string& valor, NodoAVL* nodo) const {
     return buscar(valor, nodo->getDerecho()); // Buscar en el subárbol derecho
 }
 
+/*******************************************************************************************************************
+ * Metodo para recorrer el arbol en preorden
+ * *****************************************************************************************************************/
+void ArbolAVL::recorreArbol(NodoAVL *raiz) {
+    if (raiz == nullptr) {
+        return;
+    }
+
+    // Verificar si el nodo actual está disponible
+    if (raiz->isDisponible()) {
+        raiz->mostrarDetallesActivo(); // Metodo para filtrar los activos disponibles
+    }
+
+    // Recorrer el subárbol izquierdo
+    recorreArbol(raiz->getIzquierdo());
+
+    // Recorrer el subárbol derecho
+    recorreArbol(raiz->getDerecho());
+}
+
+void ArbolAVL::recorrerArbol() {
+    recorreArbol(this->raiz);
+}
+
 // ********************************************************************************************************************
 // REPORTE DEL ARBOL AVL
-void ArbolAVL::graficarArbol(const std::string& nombreArchivo) {
-    std::ofstream archivo(nombreArchivo);
+void ArbolAVL::graficarArbol() {
+
+    // Crear el archivo DOT con un nombre predeterminado para que se sobrescriba en cada llamada
+    std::ofstream archivo("arbol.dot");
     if (!archivo.is_open()) {
         std::cerr << "Error al abrir el archivo para crear el grafo." << std::endl;
         return;
@@ -256,8 +282,9 @@ void ArbolAVL::graficarArbol(const std::string& nombreArchivo) {
     archivo << "}\n";
     archivo.close();
 
-    std::cout << "Archivo DOT creado exitosamente: " << nombreArchivo << std::endl;
+    std::cout << "Archivo arbol DOT creado exitosamente: " << std::endl;
 }
+
 
 void ArbolAVL::graficarNodo(std::ofstream& archivo, NodoAVL* nodo) {
     if (nodo == nullptr) {

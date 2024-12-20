@@ -55,12 +55,6 @@ build CMakeFiles/RentaActivosP1.dir/main.cpp.o: CXX_COMPILER__RentaActivosP1_uns
   OBJECT_DIR = CMakeFiles/RentaActivosP1.dir
   OBJECT_FILE_DIR = CMakeFiles/RentaActivosP1.dir
 
-build CMakeFiles/RentaActivosP1.dir/src/Menu.cpp.o: CXX_COMPILER__RentaActivosP1_unscanned_Debug /home/melvin/Escritorio/Proyecto1$ EDD/RentaActivosP1/src/Menu.cpp || cmake_object_order_depends_target_RentaActivosP1
-  DEP_FILE = CMakeFiles/RentaActivosP1.dir/src/Menu.cpp.o.d
-  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles/RentaActivosP1.dir
-  OBJECT_FILE_DIR = CMakeFiles/RentaActivosP1.dir/src
-
 build CMakeFiles/RentaActivosP1.dir/src/MatrizDispersa/MatrizDispersa.cpp.o: CXX_COMPILER__RentaActivosP1_unscanned_Debug /home/melvin/Escritorio/Proyecto1$ EDD/RentaActivosP1/src/MatrizDispersa/MatrizDispersa.cpp || cmake_object_order_depends_target_RentaActivosP1
   DEP_FILE = CMakeFiles/RentaActivosP1.dir/src/MatrizDispersa/MatrizDispersa.cpp.o.d
   FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
@@ -103,6 +97,12 @@ build CMakeFiles/RentaActivosP1.dir/src/Transacciones/RentaActivo.cpp.o: CXX_COM
   OBJECT_DIR = CMakeFiles/RentaActivosP1.dir
   OBJECT_FILE_DIR = CMakeFiles/RentaActivosP1.dir/src/Transacciones
 
+build CMakeFiles/RentaActivosP1.dir/src/Util.cpp.o: CXX_COMPILER__RentaActivosP1_unscanned_Debug /home/melvin/Escritorio/Proyecto1$ EDD/RentaActivosP1/src/Util.cpp || cmake_object_order_depends_target_RentaActivosP1
+  DEP_FILE = CMakeFiles/RentaActivosP1.dir/src/Util.cpp.o.d
+  FLAGS = -g -std=gnu++23 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/RentaActivosP1.dir
+  OBJECT_FILE_DIR = CMakeFiles/RentaActivosP1.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target RentaActivosP1
@@ -111,7 +111,7 @@ build CMakeFiles/RentaActivosP1.dir/src/Transacciones/RentaActivo.cpp.o: CXX_COM
 #############################################
 # Link the executable RentaActivosP1
 
-build RentaActivosP1: CXX_EXECUTABLE_LINKER__RentaActivosP1_Debug CMakeFiles/RentaActivosP1.dir/main.cpp.o CMakeFiles/RentaActivosP1.dir/src/Menu.cpp.o CMakeFiles/RentaActivosP1.dir/src/MatrizDispersa/MatrizDispersa.cpp.o CMakeFiles/RentaActivosP1.dir/src/MatrizDispersa/NodoMatriz.cpp.o CMakeFiles/RentaActivosP1.dir/src/Arbol/NodoAVL.cpp.o CMakeFiles/RentaActivosP1.dir/src/Arbol/ArbolAVL.cpp.o CMakeFiles/RentaActivosP1.dir/src/Usuario/Usuario.cpp.o CMakeFiles/RentaActivosP1.dir/src/Controlador.cpp.o CMakeFiles/RentaActivosP1.dir/src/Transacciones/RentaActivo.cpp.o
+build RentaActivosP1: CXX_EXECUTABLE_LINKER__RentaActivosP1_Debug CMakeFiles/RentaActivosP1.dir/main.cpp.o CMakeFiles/RentaActivosP1.dir/src/MatrizDispersa/MatrizDispersa.cpp.o CMakeFiles/RentaActivosP1.dir/src/MatrizDispersa/NodoMatriz.cpp.o CMakeFiles/RentaActivosP1.dir/src/Arbol/NodoAVL.cpp.o CMakeFiles/RentaActivosP1.dir/src/Arbol/ArbolAVL.cpp.o CMakeFiles/RentaActivosP1.dir/src/Usuario/Usuario.cpp.o CMakeFiles/RentaActivosP1.dir/src/Controlador.cpp.o CMakeFiles/RentaActivosP1.dir/src/Transacciones/RentaActivo.cpp.o CMakeFiles/RentaActivosP1.dir/src/Util.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/RentaActivosP1.dir
   POST_BUILD = :

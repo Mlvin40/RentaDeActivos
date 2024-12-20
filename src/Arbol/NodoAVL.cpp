@@ -102,6 +102,11 @@ void NodoAVL::setDisponible(bool disponible)
     this->disponible = disponible;
 }
 
+void NodoAVL::mostrarDetallesActivo()
+{
+    cout << "ID: " << this->valor << ";" << "Nombre: " << this->nombreActivo << ";" << "Descripcion: " << this->descripcionActivo << endl;
+}
+
 // Created by melvin on 15/12/24.
 
 

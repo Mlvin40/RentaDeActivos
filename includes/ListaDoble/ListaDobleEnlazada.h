@@ -26,6 +26,7 @@ public:
     void eliminarUltimo();
     T* obtenerContenido(int index) const;
     int getTamano();
+    NodoDoble<T>* getInicio();
 };
 
 #include "../../src/ListaDoble/ListaDobleEnlazada.tpp"

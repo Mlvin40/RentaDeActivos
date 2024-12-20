@@ -9,6 +9,7 @@
 #include "../includes/ListaDoble/ListaDobleEnlazada.h"
 #include "../includes/Usuario/Usuario.h"
 #include "../includes/Transacciones/RentaActivo.h"
+#include "../includes/Util.h"
 
 #include <iostream>
 #include <string>
@@ -21,6 +22,7 @@ private:
     ListaDobleEnlazada<Usuario>* listaUsuarios;
     ListaDobleEnlazada<RentaActivo>* listaTransacciones;
     Usuario *usuarioLogueado;
+    Util *util;
 
     void iniciarLogin();
     void usuariosGrabados();

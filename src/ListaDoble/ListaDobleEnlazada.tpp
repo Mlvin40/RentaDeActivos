@@ -76,3 +76,9 @@ template <typename T>
 int ListaDobleEnlazada<T>::getTamano() {
     return tamano;
 }
+
+//METODO PARA OBTENER EL INICIO DE LA LISTA
+template <typename T>
+NodoDoble<T>* ListaDobleEnlazada<T>::getInicio() {
+    return inicio;
+}

@@ -30,6 +30,8 @@ private:
     NodoAVL *masDerecha(NodoAVL *nodo);
 
 
+    void recorreArbol(NodoAVL *raiz);
+
 
 public:
     ArbolAVL(); //Constructor
@@ -46,12 +48,12 @@ public:
     void eliminar(string valor);
 
 
-    void graficarArbol(const std::string& nombreArchivo);
+    void graficarArbol();
     void graficarNodo(std::ofstream& archivo, NodoAVL* nodo);
     NodoAVL* buscar(const std::string& valor) const;
     NodoAVL* buscar(const std::string& valor, NodoAVL* nodo) const;
 
-
+    void recorrerArbol();
 
 
 };

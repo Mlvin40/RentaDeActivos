@@ -53,12 +53,16 @@ string RentaActivo::getDiasRentado() {
     return this->diasRentado;
 }
 
-void RentaActivo::mostrarDetalles() {
-    cout << "ID Transaccion: " << this->idTransaccion << endl;
-    cout << "ID Activo: " << this->idActivo << endl;
-    cout << "Usuario: " << this->usuario->getNombre() << endl;
-    cout << "Departamento: " << this->usuario->getDepartamento() << endl;
-    cout << "Empresa: " << this->usuario->getEmpresa() << endl;
-    cout << "Fecha de renta: " << this->fechaRenta << endl;
-    cout << "Dias rentado: " << this->diasRentado << endl;
+std::string RentaActivo::mostrarDetalles() {
+    std::ostringstream detalles; // Usamos un ostringstream para construir el string
+
+    detalles << "ID Transaccion: " << this->idTransaccion << "\n";
+    detalles << "ID Activo: " << this->idActivo << "\n";
+    detalles << "Usuario: " << this->usuario->getNombre() << "\n";
+    detalles << "Departamento: " << this->usuario->getDepartamento() << "\n";
+    detalles << "Empresa: " << this->usuario->getEmpresa() << "\n";
+    detalles << "Fecha de renta: " << this->fechaRenta << "\n";
+    detalles << "Dias rentado: " << this->diasRentado << "\n";
+
+    return detalles.str();
 }

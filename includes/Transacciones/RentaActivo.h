@@ -34,7 +34,7 @@ public:
     string getDiasRentado();
 
     // Implementar metodos de la clase
-    void mostrarDetalles();
+    std::string mostrarDetalles();
 
 
 };

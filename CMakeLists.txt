@@ -4,8 +4,6 @@ project(RentaActivosP1)
 set(CMAKE_CXX_STANDARD 23)
 
 add_executable(RentaActivosP1 main.cpp
-        includes/Menu.h
-        src/Menu.cpp
         includes/MatrizDispersa/NodoMatriz.h
         includes/MatrizDispersa/MatrizDispersa.h
         src/MatrizDispersa/MatrizDispersa.cpp
@@ -22,4 +20,6 @@ add_executable(RentaActivosP1 main.cpp
         includes/Controlador.h
         src/Controlador.cpp
         src/Transacciones/RentaActivo.cpp
+        includes/Util.h
+        src/Util.cpp
 )

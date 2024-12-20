@@ -49,6 +49,8 @@ public:
     NodoAVL *&getDerecho();
     void setDerecho(NodoAVL *derecho);
 
+    void mostrarDetallesActivo();
+
 
 };
 

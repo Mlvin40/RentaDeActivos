@@ -12,6 +12,7 @@ Controlador::Controlador() {
     this->listaUsuarios = new ListaDobleEnlazada<Usuario>();
     this->listaTransacciones = new ListaDobleEnlazada<RentaActivo>();
     this->usuarioLogueado = nullptr;
+    this->util = new Util();
     usuariosGrabados();
 }
 
@@ -126,28 +127,22 @@ void Controlador::iniciarMenuAdministrador() {
                 reporteMatrizDispersa();
                 break;
             case 3:
-                // Lógica para Reporte Activos Disponibles de un Departamento
-                cout << "Reporte Activos Disponibles de un Departamento (No implementado aún)" << endl;
+                reporteActivosDisponiblesDepartamento();
                 break;
             case 4:
-                // Lógica para Reporte Activos Disponibles de una Empresa
-                cout << "Reporte Activos Disponibles de una Empresa (No implementado aún)" << endl;
+                reporteActivosDisponiblesEmpresa();
                 break;
             case 5:
-                // Lógica para Reporte Transacciones
-                cout << "Reporte Transacciones (No implementado aún)" << endl;
+                reporteTransacciones();
                 break;
             case 6:
-                // Lógica para Reporte Activos de un Usuario
-                cout << "Reporte Activos de un Usuario (No implementado aún)" << endl;
+                reporteActivosUsuario();
                 break;
             case 7:
-                // Lógica para Activos rentados por un Usuario
-                cout << "Activos rentados por un Usuario (No implementado aún)" << endl;
+                activosRentadosUsuario();
                 break;
             case 8:
-                // Lógica para Ordenar Transacción
-                cout << "Ordenar Transacción (No implementado aún)" << endl;
+                ordenarTransaccion();
                 break;
             default:
                 cout << "Opción no válida. Intente nuevamente." << endl;
@@ -197,27 +192,82 @@ void Controlador::reporteMatrizDispersa(){
 
 void Controlador::reporteActivosDisponiblesDepartamento()
 {
-    //Todo
+    //Pedir el departamento
+    cout << "Ingrese el departamento: ";
+    string departamento;
+    cin >> departamento;
+
+    //Recorrer la lista de usuarios e ir comparando cuales tienen el mismo departamento
+    for (int i = 0; i < listaUsuarios->getTamano(); ++i) {
+        Usuario* user = listaUsuarios->obtenerContenido(i);
+
+        if (user->getDepartamento() == departamento) {
+            cout << "Usuario: " << user->getNombre() << endl;
+            cout << "Empresa: " << user->getEmpresa() << endl;
+            user->getArbol()->recorrerArbol();
+            cout <<"\n"<<endl;
+        }
+    }
+
 }
 
 void Controlador::reporteActivosDisponiblesEmpresa()
 {
-    //Todo
+    // Pedir la empresa
+    cout << "Ingrese la empresa: ";
+    string empresa;
+    cin >> empresa;
+
+    //Recorrer la lista de usuarios e ir comparando cuales tienen la misma empresa
+    for (int i = 0; i < listaUsuarios->getTamano(); ++i) {
+        Usuario* user = listaUsuarios->obtenerContenido(i);
+
+        if (user->getEmpresa() == empresa) {
+            cout << "Usuario: " << user->getNombre() << endl;
+            cout << "Empresa: " << user->getEmpresa() << endl;
+            user->getArbol()->recorrerArbol();
+            cout <<"\n"<<endl;
+        }
+    }
 }
 
 void Controlador::reporteTransacciones()
 {
-    //Todo
+    util->generarReporteTransacciones(listaTransacciones);
 }
 
 void Controlador::reporteActivosUsuario()
 {
-    //Todo
+    //Pedir el nombre del usuario del que se desea ver los activos
+    cout << "Ingrese el nombre de usuario: ";
+    string username;
+    cin >> username;
+
+    //Recorrer la lista de usuarios e ir comparando cual tiene el mismo nombre de usuario
+    for (int i = 0; i < listaUsuarios->getTamano(); ++i) {
+        Usuario* user = listaUsuarios->obtenerContenido(i);
+
+        if (user->getUsername() == username) {
+            user->getArbol()->graficarArbol();
+        }
+    }
+
 }
 
 void Controlador::activosRentadosUsuario()
 {
-    //Todo
+    // Pedir el nombre del usuario del que se desea ver los activos rentados
+    cout << "Ingrese el nombre de usuario: ";
+    string username;
+    cin >> username;
+     //Recorrer la lista de transacciones e ir comparando cual tiene el mismo nombre de usuario
+    for (int i = 0; i < listaTransacciones->getTamano(); ++i) {
+        RentaActivo* transaccion = listaTransacciones->obtenerContenido(i);
+
+        if (transaccion->getUsuario()->getUsername() == username){
+            cout << transaccion->mostrarDetalles() << endl;
+        }
+    }
 }
 
 void Controlador::ordenarTransaccion()
