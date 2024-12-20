@@ -1,5 +1,3 @@
-#include "../../includes/ListaDoble/ListaDobleEnlazada.h"
-
 template <typename T>
 ListaDobleEnlazada<T>::ListaDobleEnlazada() : inicio(nullptr), fin(nullptr), tamano(0) {}
 
@@ -9,8 +7,8 @@ bool ListaDobleEnlazada<T>::estaVacia() const {
 }
 
 template <typename T>
-void ListaDobleEnlazada<T>::agregarElemento(T valor) {
-    NodoDoble<T>* nuevo = new NodoDoble<T>(valor);
+void ListaDobleEnlazada<T>::agregarElemento(T* valor) {
+    NodoDoble<T>* nuevo = new NodoDoble<T>(valor);  // Cambiar T por T* si usas punteros
 
     if (estaVacia()) {
         inicio = nuevo;
@@ -43,7 +41,7 @@ void ListaDobleEnlazada<T>::eliminarUltimo() {
 }
 
 template <typename T>
-T ListaDobleEnlazada<T>::obtenerContenido(int index) const {
+T* ListaDobleEnlazada<T>::obtenerContenido(int index) const {
     if (estaVacia()) {
         throw std::runtime_error("La lista está vacía. No se puede obtener contenido.");
     }

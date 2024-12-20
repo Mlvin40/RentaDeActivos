@@ -54,7 +54,10 @@
 				5,
 				6,
 				10,
-				12
+				12,
+				15,
+				17,
+				18
 			]
 		}
 	],
@@ -92,7 +95,10 @@
 				5,
 				6,
 				10,
-				12
+				12,
+				15,
+				17,
+				18
 			]
 		},
 		{
@@ -105,7 +111,10 @@
 				7,
 				8,
 				9,
-				11
+				11,
+				13,
+				14,
+				16
 			]
 		}
 	],
@@ -180,6 +189,39 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/Arbol/ArbolAVL.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "includes/Transacciones/RentaActivo.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "includes/Usuario/Usuario.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/Usuario/Usuario.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"path" : "includes/Controlador.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/Controlador.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/Transacciones/RentaActivo.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

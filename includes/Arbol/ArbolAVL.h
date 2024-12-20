@@ -25,9 +25,10 @@ private:
     void rotacionIzquierdaDerecha(NodoAVL *&nodo);
     void rotacionDerechaIzquierda(NodoAVL *&nodo);
 
-    void eliminar(int valor, NodoAVL *&raiz);
-
+    void eliminar(string valor, NodoAVL *&raiz);
+    bool esHoja(NodoAVL *nodo);
     NodoAVL *masDerecha(NodoAVL *nodo);
+
 
 
 public:
@@ -40,13 +41,16 @@ public:
     void setRaiz(NodoAVL *raiz);
 
     //Métodos
-    void insertar(int valor);
-    void eliminar(int valor);
-    bool esHoja(NodoAVL *nodo);
+    void insertar(const string& nombreActivo, const string& descripcion);  //el que se utiliza en el controlador
+
+    void eliminar(string valor);
 
 
     void graficarArbol(const std::string& nombreArchivo);
     void graficarNodo(std::ofstream& archivo, NodoAVL* nodo);
+    NodoAVL* buscar(const std::string& valor) const;
+    NodoAVL* buscar(const std::string& valor, NodoAVL* nodo) const;
+
 
 
 

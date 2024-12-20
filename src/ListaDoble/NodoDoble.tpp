@@ -1,16 +1,13 @@
-
-#include "../../includes/ListaDoble/NodoDoble.h"
+template <typename T>
+NodoDoble<T>::NodoDoble(T* valor) : valor(valor), siguiente(nullptr), anterior(nullptr) {}
 
 template <typename T>
-NodoDoble<T>::NodoDoble(T valor) : valor(valor), siguiente(nullptr), anterior(nullptr) {}
-
-template <typename T>
-T NodoDoble<T>::getValor() const {
+T* NodoDoble<T>::getValor() const {
     return valor;
 }
 
 template <typename T>
-void NodoDoble<T>::setValor(T valor) {
+void NodoDoble<T>::setValor(T* valor) {
     this->valor = valor;
 }
 

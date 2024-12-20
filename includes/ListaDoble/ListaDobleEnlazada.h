@@ -1,7 +1,3 @@
-//
-// Created by melvin on 15/12/24.
-//
-
 #ifndef LISTADOBLEENLAZADA_H
 #define LISTADOBLEENLAZADA_H
 
@@ -26,11 +22,11 @@ public:
 
     // Métodos públicos
     bool estaVacia() const;
-    void agregarElemento(T valor);
+    void agregarElemento(T* valor);
     void eliminarUltimo();
-    T obtenerContenido(int index) const;
+    T* obtenerContenido(int index) const;
 };
 
 #include "../../src/ListaDoble/ListaDobleEnlazada.tpp"
 
-#endif //LISTADOBLEENLAZADA_H
+#endif // LISTADOBLEENLAZADA_H

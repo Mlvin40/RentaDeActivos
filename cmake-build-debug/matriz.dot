@@ -1,103 +1,88 @@
 digraph G {
     node [shape=box];
     n0 [label = "admin" group=1];
-Guatemala[label = "Guatemala" group=2];
-Jutiapa[label = "Jutiapa" group=3];
-Escuintla[label = "Escuintla" group=4];
-Peten[label = "Peten" group=5];
-Totonicapan[label = "Totonicapan" group=6];
-n0 -> Guatemala;
-Guatemala -> Jutiapa;
-Jutiapa -> Guatemala;
-Jutiapa -> Escuintla;
-Escuintla -> Jutiapa;
-Escuintla -> Peten;
-Peten -> Escuintla;
-Peten -> Totonicapan;
-Totonicapan -> Peten;
-IGSS[label = "IGSS" group=1];
-Cinepolis[label = "Cinepolis" group=1];
-Max[label = "Max" group=1];
-Vienesa[label = "Vienesa" group=1];
-n0 -> IGSS;
-IGSS -> Cinepolis;
-Cinepolis -> IGSS;
-Cinepolis -> Max;
-Max -> Cinepolis;
-Max -> Vienesa;
-Vienesa -> Max;
-{rank=same; n0; Guatemala; Jutiapa; Escuintla; Peten; Totonicapan; }
+guatemala[label = "guatemala" group=2];
+jutiapa[label = "jutiapa" group=3];
+jalapa[label = "jalapa" group=4];
+peten[label = "peten" group=5];
+n0 -> guatemala;
+guatemala -> jutiapa;
+jutiapa -> guatemala;
+jutiapa -> jalapa;
+jalapa -> jutiapa;
+jalapa -> peten;
+peten -> jalapa;
+igss[label = "igss" group=1];
+max[label = "max" group=1];
+usac[label = "usac" group=1];
+cinepolis[label = "cinepolis" group=1];
+n0 -> igss;
+igss -> max;
+max -> igss;
+max -> usac;
+usac -> max;
+usac -> cinepolis;
+cinepolis -> usac;
+{rank=same; n0; guatemala; jutiapa; jalapa; peten; }
 
-IGSS[label = "IGSS" group=1];
-Usuario1[label = "Usuario1" group=2];
-Usuario2[label = "Usuario2" group=3];
-Usuario8[label = "Usuario8" group=5];
-Cinepolis[label = "Cinepolis" group=0];
-Usuario3[label = "Usuario3" group=2];
-Max[label = "Max" group=0];
-Usuario5[label = "Usuario5" group=3];
-Usuario4[label = "Usuario4" group=4];
-Vienesa[label = "Vienesa" group=0];
-Usuario13[label = "Usuario13" group=3];
-Usuario11[label = "Usuario11" group=4];
-Usuario12[label = "Usuario12" group=5];
-Usuario10[label = "Usuario10" group=6];
-{rank=same;IGSS; Usuario1; Usuario2; Usuario8; }
+igss[label = "igss" group=1];
+elian_estrada[label = "elian_estrada" group=2];
+max[label = "max" group=0];
+casimiro[label = "casimiro" group=2];
+juanito[label = "juanito" group=3];
+usac[label = "usac" group=0];
+juanma[label = "juanma" group=2];
+azurdia[label = "azurdia" group=3];
+alcachofa[label = "alcachofa" group=4];
+cinepolis[label = "cinepolis" group=0];
+fuego03[label = "fuego03" group=3];
+mafer[label = "mafer" group=5];
+{rank=same;igss; elian_estrada; }
 
-{rank=same;Cinepolis; Usuario3; }
+{rank=same;max; casimiro; juanito; }
 
-{rank=same;Max; Usuario5; Usuario4; }
+{rank=same;usac; juanma; azurdia; alcachofa; }
 
-{rank=same;Vienesa; Usuario13; Usuario11; Usuario12; Usuario10; }
+{rank=same;cinepolis; fuego03; mafer; }
 
-IGSS -> Usuario1;
-Usuario1 -> IGSS;
-Usuario1 -> Usuario2;
-Usuario2 -> Usuario1;
-Usuario1 -> Guatemala;
-Guatemala -> Usuario1;
+igss -> elian_estrada;
+elian_estrada -> igss;
+elian_estrada -> guatemala;
+guatemala -> elian_estrada;
 
-Usuario2 -> Usuario8;
-Usuario8 -> Usuario2;
-Usuario2 -> Jutiapa;
-Jutiapa -> Usuario2;
+max -> casimiro;
+casimiro -> max;
+casimiro -> juanito;
+juanito -> casimiro;
+casimiro -> elian_estrada;
+elian_estrada -> casimiro;
 
-Usuario8 -> Peten;
-Peten -> Usuario8;
+juanito -> jutiapa;
+jutiapa -> juanito;
 
-Cinepolis -> Usuario3;
-Usuario3 -> Cinepolis;
-Usuario3 -> Usuario1;
-Usuario1 -> Usuario3;
+usac -> juanma;
+juanma -> usac;
+juanma -> azurdia;
+azurdia -> juanma;
+juanma -> casimiro;
+casimiro -> juanma;
 
-Max -> Usuario5;
-Usuario5 -> Max;
-Usuario5 -> Usuario4;
-Usuario4 -> Usuario5;
-Usuario5 -> Usuario2;
-Usuario2 -> Usuario5;
+azurdia -> alcachofa;
+alcachofa -> azurdia;
+azurdia -> juanito;
+juanito -> azurdia;
 
-Usuario4 -> Escuintla;
-Escuintla -> Usuario4;
+alcachofa -> jalapa;
+jalapa -> alcachofa;
 
-Vienesa -> Usuario13;
-Usuario13 -> Vienesa;
-Usuario13 -> Usuario11;
-Usuario11 -> Usuario13;
-Usuario13 -> Usuario5;
-Usuario5 -> Usuario13;
+cinepolis -> fuego03;
+fuego03 -> cinepolis;
+fuego03 -> mafer;
+mafer -> fuego03;
+fuego03 -> azurdia;
+azurdia -> fuego03;
 
-Usuario11 -> Usuario12;
-Usuario12 -> Usuario11;
-Usuario11 -> Usuario4;
-Usuario4 -> Usuario11;
-
-Usuario12 -> Usuario10;
-Usuario10 -> Usuario12;
-Usuario12 -> Usuario8;
-Usuario8 -> Usuario12;
-
-Usuario10 -> Totonicapan;
-Totonicapan -> Usuario10;
+mafer -> peten;
+peten -> mafer;
 
 }

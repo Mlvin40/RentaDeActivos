@@ -1,14 +1,18 @@
 digraph AVL {
-    node [shape=circle, style=filled, color=lightblue];
-    "5" [label="5"];
-    "5" -> "1";
-    "1" [label="1"];
-    "1" -> "0";
-    "0" [label="0"];
-    "1" -> "4";
-    "4" [label="4"];
-    "5" -> "11";
-    "11" [label="11"];
-    "11" -> "14";
-    "14" [label="14"];
+    node [shape=circle, style=filled];
+    "373984627436602" [label="Activo3\n373984627436602", fillcolor=lightblue];
+    "373984627436602" -> "067344387462917";
+    "067344387462917" [label="Activo1\n067344387462917", fillcolor=lightblue];
+    "067344387462917" -> "357046218627165";
+    "357046218627165" [label="Activo6\n357046218627165", fillcolor=lightblue];
+    "373984627436602" -> "588117110439285";
+    "588117110439285" [label="Activo4\n588117110439285", fillcolor=lightblue];
+    "588117110439285" -> "422198764181986";
+    "422198764181986" [label="Activo2\n422198764181986", fillcolor=lightblue];
+    "588117110439285" -> "705034481139864";
+    "705034481139864" [label="Activo7\n705034481139864", fillcolor=lightblue];
+    "705034481139864" -> "635498028212853";
+    "635498028212853" [label="Activo5\n635498028212853", fillcolor=lightblue];
+    "705034481139864" -> "951596841260415";
+    "951596841260415" [label="Activo8\n951596841260415", fillcolor=lightblue];
 }

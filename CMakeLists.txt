@@ -16,4 +16,10 @@ add_executable(RentaActivosP1 main.cpp
         src/Arbol/NodoAVL.cpp
         includes/Arbol/ArbolAVL.h
         src/Arbol/ArbolAVL.cpp
+        includes/Transacciones/RentaActivo.h
+        includes/Usuario/Usuario.h
+        src/Usuario/Usuario.cpp
+        includes/Controlador.h
+        src/Controlador.cpp
+        src/Transacciones/RentaActivo.cpp
 )

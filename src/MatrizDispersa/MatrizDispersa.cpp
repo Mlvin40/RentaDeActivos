@@ -160,7 +160,7 @@ NodoMatriz *MatrizDispersa::buscarNodo(string departamento, string empresa) {
                 auxiliarDepartamento = auxiliarDepartamento->siguiente;
             }
         }
-        auxiliarEmpresa = auxiliarEmpresa->siguiente;
+        auxiliarEmpresa = auxiliarEmpresa->abajo;
     }
     return nullptr;
 }
@@ -348,38 +348,46 @@ bool MatrizDispersa::masDerecha(NodoMatriz *cabeceraH, string valor) {
  * *****************************************************************************************************************/
 
 void MatrizDispersa::insertarAdelante(NodoMatriz *usuarioExistente, string nuevoUsuario) {
-
+    // Crear el nuevo nodo
     NodoMatriz *nuevoNodo = new NodoMatriz(nuevoUsuario);
-    NodoMatriz *auxiliar = usuarioExistente; // este para despues copiar todos sus punteros y no perder la referencia
 
-    auxiliar = usuarioExistente;
-    usuarioExistente = nuevoNodo;
+    // Conectar el nuevo nodo con el existente en la dimensión adelante-atras
+    nuevoNodo->atras = usuarioExistente;
+    nuevoNodo->adelante = usuarioExistente->adelante;
 
-    //Cambiar todas las referencias que tenia el nodo que se envio para atras
-    //para las referencias de siguiente y anterior
-    nuevoNodo->siguiente = auxiliar->siguiente;
-    auxiliar->siguiente->anterior = nuevoNodo;
+    // Si hay un nodo adelante, actualizar su referencia hacia atrás
+    if (usuarioExistente->adelante != nullptr) {
+        usuarioExistente->adelante->atras = nuevoNodo;
+    }
 
-    //para las referencias de anterior y siguiente
-    nuevoNodo->anterior = auxiliar->anterior;
-    auxiliar->anterior->siguiente = nuevoNodo;
+    // Actualizar la referencia del nodo existente hacia adelante
+    usuarioExistente->adelante = nuevoNodo;
 
-    //para las referencias de arriba y abajo
-    nuevoNodo->arriba = auxiliar->arriba;
-    auxiliar->arriba->abajo = nuevoNodo;
+    // El nuevo nodo copia las referencias del nodo existente en las demás dimensiones
+    nuevoNodo->siguiente = usuarioExistente->siguiente;
+    nuevoNodo->anterior = usuarioExistente->anterior;
+    nuevoNodo->arriba = usuarioExistente->arriba;
+    nuevoNodo->abajo = usuarioExistente->abajo;
 
-    //para las referencias de abajo y arriba
-    nuevoNodo->abajo = auxiliar->abajo;
-    auxiliar->abajo->arriba = nuevoNodo;
+    //Limpiar las referencias del nodo que se va para atras
+    usuarioExistente->siguiente = nullptr;
+    usuarioExistente->anterior = nullptr;
+    usuarioExistente->arriba = nullptr;
+    usuarioExistente->abajo = nullptr;
 
-    //limpiar las referencias del nodo que se envio para atras
-    auxiliar->arriba = nullptr;
-    auxiliar->abajo = nullptr;
-    auxiliar->siguiente = nullptr;
-    auxiliar->anterior = nullptr;
-
-    nuevoNodo->atras = auxiliar;
-    auxiliar->adelante = nuevoNodo;
+    // Actualizar las referencias de los nodos vecinos (si existen) para apuntar al nuevo nodo
+    if (nuevoNodo->siguiente != nullptr) {
+        nuevoNodo->siguiente->anterior = nuevoNodo;
+    }
+    if (nuevoNodo->anterior != nullptr) {
+        nuevoNodo->anterior->siguiente = nuevoNodo;
+    }
+    if (nuevoNodo->arriba != nullptr) {
+        nuevoNodo->arriba->abajo = nuevoNodo;
+    }
+    if (nuevoNodo->abajo != nullptr) {
+        nuevoNodo->abajo->arriba = nuevoNodo;
+    }
 }
 
 void MatrizDispersa::insertarAtras(NodoMatriz *usuarioExistente, string nuevoUsuario) {

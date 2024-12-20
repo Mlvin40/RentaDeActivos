@@ -12,9 +12,9 @@ ArbolAVL::ArbolAVL()
     this->raiz = nullptr;
 }
 
-void ArbolAVL::insertar(int valor)
+void ArbolAVL::insertar(const string& nombreActivo, const string& descripcion)
 {
-    NodoAVL* nodo = new NodoAVL(valor);
+    NodoAVL* nodo = new NodoAVL(nombreActivo, descripcion);
     insertar(nodo, this->raiz);
 }
 
@@ -131,7 +131,7 @@ NodoAVL *ArbolAVL::masDerecha(NodoAVL *nodo){
 }
 
 // este metodo utiliza el metodo privado que se encarga de eliminar un nodo del arbol
-void::ArbolAVL::eliminar(int valor){
+void::ArbolAVL::eliminar(string valor){
     eliminar(valor, this->raiz);
 }
 
@@ -141,7 +141,7 @@ bool ArbolAVL::esHoja(NodoAVL* nodo)
     return nodo->getIzquierdo() == nullptr && nodo->getDerecho() == nullptr;
 }
 
-void::ArbolAVL::eliminar(int valor, NodoAVL *&raiz)
+void::ArbolAVL::eliminar(string valor, NodoAVL *&raiz)
 {
     if (raiz == nullptr){ // esto significa que el valor no existe dentro del arbol
         std::cout << "El valor no existe en el arbol" << std::endl;
@@ -213,7 +213,26 @@ void::ArbolAVL::eliminar(int valor, NodoAVL *&raiz)
         rotacionIzquierda(raiz);
         return;
     }
+}
 
+NodoAVL* ArbolAVL::buscar(const std::string& valor) const {
+    return buscar(valor, this->raiz);
+}
+
+NodoAVL* ArbolAVL::buscar(const std::string& valor, NodoAVL* nodo) const {
+    if (nodo == nullptr) {
+        return nullptr; // No se encontró el valor
+    }
+
+    if (valor == nodo->getValor()) {
+        return nodo; // Se encontró el nodo con el valor
+    }
+
+    if (valor < nodo->getValor()) {
+        return buscar(valor, nodo->getIzquierdo()); // Buscar en el subárbol izquierdo
+    }
+
+    return buscar(valor, nodo->getDerecho()); // Buscar en el subárbol derecho
 }
 
 // ********************************************************************************************************************
@@ -227,7 +246,7 @@ void ArbolAVL::graficarArbol(const std::string& nombreArchivo) {
 
     // Iniciar el archivo DOT
     archivo << "digraph AVL {\n";
-    archivo << "    node [shape=circle, style=filled, color=lightblue];\n";
+    archivo << "    node [shape=circle, style=filled];\n";
 
     // Generar nodos y conexiones
     if (raiz != nullptr) {
@@ -245,19 +264,26 @@ void ArbolAVL::graficarNodo(std::ofstream& archivo, NodoAVL* nodo) {
         return;
     }
 
-    // Crear nodo
+    // Determinar el color del nodo según la propiedad isActivo
+    std::string color = nodo->isDisponible() ? "lightblue" : "red";
+
+    // Crear nodo con nombre, valor y color
     archivo << "    \"" << nodo->getValor() << "\" [label=\""
-            << nodo->getValor() << "\"];\n";
+            << nodo->getNombreActivo() << "\\n" // Mostrar el nombre en una línea
+            << nodo->getValor() << "\", fillcolor=" << color << "];\n"; // Mostrar el valor y aplicar el color
 
     // Enlazar con el hijo izquierdo
     if (nodo->getIzquierdo() != nullptr) {
-        archivo << "    \"" << nodo->getValor() << "\" -> \"" << nodo->getIzquierdo()->getValor() << "\";\n";
+        archivo << "    \"" << nodo->getValor() << "\" -> \""
+                << nodo->getIzquierdo()->getValor() << "\";\n";
         graficarNodo(archivo, nodo->getIzquierdo());
     }
 
     // Enlazar con el hijo derecho
     if (nodo->getDerecho() != nullptr) {
-        archivo << "    \"" << nodo->getValor() << "\" -> \"" << nodo->getDerecho()->getValor() << "\";\n";
+        archivo << "    \"" << nodo->getValor() << "\" -> \""
+                << nodo->getDerecho()->getValor() << "\";\n";
         graficarNodo(archivo, nodo->getDerecho());
     }
 }
+
