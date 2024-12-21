@@ -44,6 +44,10 @@ void Util::generarReporteTransacciones(ListaDobleEnlazada<RentaActivo>* lista) {
 
     archivo << "}\n";
     archivo.close();
+    if (!archivo)
+    {
+        cout << "Error al crear el archivo" << endl;
+    }
 
     std::cout << "Reporte de transacciones generado exitosamente: reporte_transacciones.dot" << std::endl;
 }

@@ -4,9 +4,10 @@
 
 #include "../../includes/Arbol/NodoAVL.h"
 
-NodoAVL::NodoAVL(string nombreActivo, string descripcion){
+NodoAVL::NodoAVL(string nombreActivo, string descripcion, int diasRenta){
     this->nombreActivo = nombreActivo;
     this->descripcionActivo = descripcion;
+    this->diasRenta = diasRenta;
     this->valor = generarID();
     this->factorEquilibrio = 0;
     this->izquierdo = nullptr;
@@ -100,6 +101,11 @@ bool NodoAVL::isDisponible()
 void NodoAVL::setDisponible(bool disponible)
 {
     this->disponible = disponible;
+}
+
+int NodoAVL::getDiasRenta()
+{
+    return this->diasRenta;
 }
 
 void NodoAVL::mostrarDetallesActivo()

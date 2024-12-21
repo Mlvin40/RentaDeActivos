@@ -10,28 +10,32 @@
 #include <random>
 #include <string>
 #include <chrono>
+#include <ctime>
+#include <sstream>
 using namespace std;
 
 class RentaActivo {
 
 private:
     string idTransaccion;
-    string idActivo; // Del activo que se rentó
+    NodoAVL* activo; // Del activo que se renta
     Usuario *usuario;
     string fechaRenta;
     string diasRentado;
 
     string generarID();
+    string obtenerFechaActual();
 
 public:
     //Getters de todo
-    RentaActivo(string idActivo, Usuario *usuario, string fechaRenta, string diasRentado);
+    RentaActivo(NodoAVL *activo, Usuario *usuario, string diasRentado);
     ~RentaActivo();
     int getIdTransaccion();
-    int getIdActivo();
     Usuario *getUsuario();
     string getFechaRenta();
     string getDiasRentado();
+    NodoAVL* getActivo();
+    void mostrarEnLinea();
 
     // Implementar metodos de la clase
     std::string mostrarDetalles();

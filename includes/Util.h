@@ -10,6 +10,7 @@
 class Util {
 
 public:
+    bool rentarActivo();
     void generarReporteTransacciones(ListaDobleEnlazada<RentaActivo>* lista);
 
 };

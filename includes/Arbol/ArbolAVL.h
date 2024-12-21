@@ -29,10 +29,12 @@ private:
     bool esHoja(NodoAVL *nodo);
     NodoAVL *masDerecha(NodoAVL *nodo);
 
+    void graficarNodo(std::ofstream& archivo, NodoAVL* nodo);
 
+    //Para recorrer el arbol
     void recorreArbol(NodoAVL *raiz);
-
-
+    void recorrerTodoElArbol(NodoAVL *raiz);
+    void mostrarYaRentados(NodoAVL *raiz);
 public:
     ArbolAVL(); //Constructor
     ~ArbolAVL(); //Destructor
@@ -43,17 +45,18 @@ public:
     void setRaiz(NodoAVL *raiz);
 
     //Métodos
-    void insertar(const string& nombreActivo, const string& descripcion);  //el que se utiliza en el controlador
+    void insertar(const string& nombreActivo, const string& descripcion, int diasRenta);  //el que se utiliza en el controlador
 
     void eliminar(string valor);
 
 
     void graficarArbol();
-    void graficarNodo(std::ofstream& archivo, NodoAVL* nodo);
     NodoAVL* buscar(const std::string& valor) const;
     NodoAVL* buscar(const std::string& valor, NodoAVL* nodo) const;
 
     void recorrerArbol();
+    void recorrerTodoElArbol();
+    void mostrarYaRentados();
 
 
 };

@@ -5,6 +5,8 @@
 #include <iostream>
 #include <cstdlib>
 #include "../includes/Controlador.h"
+
+#include <bits/posix2_lim.h>
 using namespace std;
 
 Controlador::Controlador() {
@@ -303,28 +305,22 @@ void Controlador::iniciarMenuUsuario() {
                 cout << "Cerrando sesión de Usuario..." << endl;
                 break;
             case 1:
-                // Lógica para Agregar Activo
-                cout << "Agregar Activo (No implementado aún)" << endl;
+                agregarActivo();
                 break;
             case 2:
-                // Lógica para Eliminar Activo
-                cout << "Eliminar Activo (No implementado aún)" << endl;
+                eliminarActivo();
                 break;
             case 3:
-                // Lógica para Modificar Activo
-                cout << "Modificar Activo (No implementado aún)" << endl;
+                modificarActivo();
                 break;
             case 4:
-                // Lógica para Rentar Activo
-                cout << "Rentar Activo (No implementado aún)" << endl;
+                rentarActivo();
                 break;
             case 5:
-                // Lógica para Activos Rentados
-                cout << "Activos Rentados (No implementado aún)" << endl;
+                activosRentados();
                 break;
             case 6:
-                // Lógica para Mis Activos Rentados
-                cout << "Mis Activos Rentados (No implementado aún)" << endl;
+                misActivosRentados();
                 break;
             default:
                 cout << "Opción no válida. Intente nuevamente." << endl;
@@ -339,6 +335,148 @@ void Controlador::iniciarMenuUsuario() {
     }
 }
 
+void Controlador::agregarActivo(){
+    cout << "Ingrese el nombre del activo: ";
+    string nombreActivo;
+    getline(cin, nombreActivo);
+
+    // Pedir la descripción del activo
+    cout << "Ingrese la descripción del activo: ";
+    string descripcion;
+    getline(cin, descripcion);
+
+    // Pedir los días máximos de renta
+    cout << "Ingrese los días máximos de renta: ";
+    int diasRenta;
+    cin >> diasRenta;
+
+    // Mostrar los valores ingresados para confirmar
+    cout << "\nDatos ingresados:" << endl;
+    cout << "Nombre del activo: " << nombreActivo << endl;
+    cout << "Descripción: " << descripcion << endl;
+    cout << "Días máximos de renta: " << diasRenta << endl;
+
+    usuarioLogueado->getArbol()->insertar(nombreActivo, descripcion, diasRenta);
+    cout << "Activo agregado exitosamente." << endl;
+    cout << "Presione Enter para continuar...";
+    cin.ignore();
+    cin.get();
+
+}
+void Controlador::eliminarActivo(){
+    // pedir un string que sera el id del activo a eliminar
+    separador();
+    usuarioLogueado->getArbol()->recorrerArbol();
+    separador();
+    cout << "Ingrese el ID del activo a eliminar: ";
+    string idActivo;
+    cin >> idActivo;
+
+    NodoAVL *activo = usuarioLogueado->getArbol()->buscar(idActivo);
+    if (!activo->isDisponible()) {
+        cout << "No se puede eliminar un activo rentado" << endl;
+        return;
+    }
+    if (activo == nullptr) {
+        cout << "Activo no encontrado." << endl;
+        return;
+    }
+    usuarioLogueado->getArbol()->eliminar(idActivo);
+    cout << "Activo eliminado exitosamente." << endl;
+    cout << "Presione Enter para continuar...";
+    cin.ignore();
+    cin.get();
+}
+void Controlador::modificarActivo(){
+    separador();
+    usuarioLogueado->getArbol()->recorrerTodoElArbol();
+    separador();
+
+    //Pedir el id del activo a modificar en tipo string getLine
+    cout << "Ingrese el ID del activo a modificar: ";
+    string idActivo;
+    cin >> idActivo;
+
+    NodoAVL *activo = usuarioLogueado->getArbol()->buscar(idActivo);
+    if (activo == nullptr) {
+        cout << "Activo no encontrado." << endl;
+    } else
+    {
+        //Pedir la nueva descripcion del activo y modificarla
+        cout << "Ingrese la nueva descripción del activo: ";
+        string nuevaDescripcion;
+        cin.ignore();
+        getline(cin, nuevaDescripcion);
+        activo->setDescripcionActivo(nuevaDescripcion);
+        cout << "Descripción modificada exitosamente." << endl;
+    }
+}
+void Controlador::rentarActivo()
+{
+    // Primero se debera recorrer la lista de todos los usuarios y mostrar sus nombre de usuario
+    for (int i = 0; i < listaUsuarios->getTamano(); ++i) {
+        Usuario* user = listaUsuarios->obtenerContenido(i);
+        cout << i << ". " << user->getUsername() << endl;
+    }
+    cout << "Seleccione el usuario al que desea rentar el activo: " << endl;
+    int opcion;
+    cin >> opcion;
+
+    separador();
+    listaUsuarios->obtenerContenido(opcion)->getArbol()->recorrerArbol(); // Este metodos se encarga de mostrar todos los activos disponibles del usuario seleccionado
+    cout << "Seleccione el activo que desea rentar: " << endl;
+    string idActivo; // leerlo con getLine
+    getline(cin, idActivo);
+    NodoAVL *aRentar = listaUsuarios->obtenerContenido(opcion)->getArbol()->buscar(idActivo);
+    if (aRentar == nullptr) {
+        cout << "Activo no encontrado." << endl;
+        return;
+    }
+        aRentar->mostrarDetallesActivo();
+
+        cout << "Ingrese la cantidad de días que desea rentar el activo: ";
+        int dias;
+        cin >> dias;
+
+        if (dias > aRentar->getDiasRenta()) {
+            cout << "El activo no puede ser rentado por más de " << aRentar->getDiasRenta() << " días." << endl;
+            return;
+        }
+        aRentar->setDisponible(false);
+        //RentaActivo(string idActivo, Usuario *usuario, string fechaRenta, string diasRentado);
+        RentaActivo *transaccion = new RentaActivo(aRentar, listaUsuarios->obtenerContenido(opcion), std::to_string(dias));
+        listaTransacciones->agregarElemento(transaccion);
+        cout << "Activo rentado exitosamente." << endl;
+    }
+
+void Controlador::activosRentados()
+{
+    separador();
+    //Aqui se debe de recorrer la lista de transacciones y mostrar los que coincidan con el usuario logueado
+    for (int i = 0; i < listaTransacciones->getTamano(); ++i) {
+        RentaActivo* transaccion = listaTransacciones->obtenerContenido(i);
+
+        // Si el usuario de la transacción es igual al usuario log
+        if (transaccion->getUsuario()->getUsername() == usuarioLogueado->getUsername()) {
+            if (!transaccion->getActivo()->isDisponible()) // si no esta disponible significa que el usuario ya lo rento y si esta disponible significa que ya se ha devuelto
+            {
+                transaccion->mostrarEnLinea();
+            }
+        }
+        //Implementar la parte de devolver un activo
+
+    }
+}
+
+    void Controlador::misActivosRentados(){
+        //Aqui debo de recorrer el arbol y ver cuales tienen el disponible en falso, esos se deben de mostrar
+        separador();
+        cout << "Activos rentados por " << usuarioLogueado->getNombre() << endl;
+        separador();
+        usuarioLogueado->getArbol()->mostrarYaRentados();
+    }
+
+
 //********************************************************************************************************************
 //********************************************************************************************************************
 //********************************************************************************************************************
@@ -349,6 +487,11 @@ void Controlador::usuariosGrabados(){
     user = new Usuario("elian_estrada", "Elian Estrada", "1234", "guatemala", "igss");
     matrizDispersa->insertarValor(user->getUsername(), user->getDepartamento(), user->getEmpresa());
     listaUsuarios->agregarElemento(user);
+    user->getArbol()->insertar("madera","madera para albañil",20);
+    user->getArbol()->insertar("martillos","martillos para madera",10);
+    user->getArbol()->insertar("caladora","caladora para cortar maderas prefabricadas",15);
+    user->getArbol()->insertar("barreno","barreno para concreto",5);
+
 
     user = new Usuario("juanito", "Juan Perez", "4567", "jutiapa", "max");
     matrizDispersa->insertarValor(user->getUsername(), user->getDepartamento(), user->getEmpresa());
@@ -357,10 +500,23 @@ void Controlador::usuariosGrabados(){
     user = new Usuario("casimiro", "Carlos Perez", "721896", "guatemala", "max");
     matrizDispersa->insertarValor(user->getUsername(), user->getDepartamento(), user->getEmpresa());
     listaUsuarios->agregarElemento(user);
+    user->getArbol()->insertar("balanza","balanza con maximo de 25kg",15);
+    user->getArbol()->insertar("canastas","canastas para frutas y verduras",45);
+    user->getArbol()->insertar("linternas","linternas para alumbrar cuartos oscuros",10);
+    user->getArbol()->insertar("cargadores","cargadores de telefonos tipo c",5);
+    user->getArbol()->insertar("cables","cables de todo tipo",10);
+    user->getArbol()->insertar("lazos","lazos para tender ropa",20);
+
 
     user = new Usuario("incrediboy", "Iraldo Martinez", "201598", "jutiapa", "max");
     matrizDispersa->insertarValor(user->getUsername(), user->getDepartamento(), user->getEmpresa());
     listaUsuarios->agregarElemento(user);
+    user->getArbol()->insertar("casets","casets con musica de todo tipo",5);
+    user->getArbol()->insertar("pantallas","pantallas para proyección",10);
+    user->getArbol()->insertar("cañonera","cañonera para proyeccion",10);
+    user->getArbol()->insertar("toldo","toldo para eventos al exterior",5);
+
+
 
     user = new Usuario("pedrito", "Pedro Rodriguez", "48956", "jalapa", "usac");
     matrizDispersa->insertarValor(user->getUsername(), user->getDepartamento(), user->getEmpresa());
@@ -381,16 +537,24 @@ void Controlador::usuariosGrabados(){
     user = new Usuario("mafer", "Maria Fernandez", "54312", "peten", "cinepolis");
     matrizDispersa->insertarValor(user->getUsername(), user->getDepartamento(), user->getEmpresa());
     listaUsuarios->agregarElemento(user);
+    user->getArbol()->insertar("audio","audio para grabaciones de estudio",10);
+    user->getArbol()->insertar("microfonos","microfonos de todo tipo",8);
+    user->getArbol()->insertar("pedestales","pedestales para microfonos grandes y pequeños",12);
+    user->getArbol()->insertar("atriles","atriles para colocar ojas con gancho",14);
+
 
     user = new Usuario("fuego03", "Fernando Mendez", "891346", "jutiapa", "cinepolis");
     matrizDispersa->insertarValor(user->getUsername(), user->getDepartamento(), user->getEmpresa());
     listaUsuarios->agregarElemento(user);
+    user->getArbol()->insertar("termos","pequeños termos para bebidas calientes",10);
+    user->getArbol()->insertar("maletas","maletas desde pequeñas a grandes",15);
+    user->getArbol()->insertar("peliculas","todo tipo de peliculas de accion",5);
+
 
     matrizDispersa->graficarMatriz("matriz.dot");
     cout << "Usuarios grabados exitosamente" << endl;
 
 }
-
 void Controlador::separador() {
     cout<<"\n"<<endl;
     cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;

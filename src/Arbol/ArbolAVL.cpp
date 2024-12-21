@@ -12,9 +12,9 @@ ArbolAVL::ArbolAVL()
     this->raiz = nullptr;
 }
 
-void ArbolAVL::insertar(const string& nombreActivo, const string& descripcion)
+void ArbolAVL::insertar(const string& nombreActivo, const string& descripcion, int diasRenta)
 {
-    NodoAVL* nodo = new NodoAVL(nombreActivo, descripcion);
+    NodoAVL* nodo = new NodoAVL(nombreActivo, descripcion, diasRenta);
     insertar(nodo, this->raiz);
 }
 
@@ -257,6 +257,48 @@ void ArbolAVL::recorreArbol(NodoAVL *raiz) {
 
 void ArbolAVL::recorrerArbol() {
     recorreArbol(this->raiz);
+}
+
+
+// para todo el arbol sin parametros
+void ArbolAVL::recorrerTodoElArbol() {
+    recorrerTodoElArbol(this->raiz);
+}
+
+void ArbolAVL::recorrerTodoElArbol(NodoAVL *raiz) {
+    if (raiz == nullptr) {
+        return;
+    }
+
+    raiz->mostrarDetallesActivo(); // Metodo para filtrar los activos disponibles
+
+    // Recorrer el subárbol izquierdo
+    recorrerTodoElArbol(raiz->getIzquierdo());
+
+    // Recorrer el subárbol derecho
+    recorrerTodoElArbol(raiz->getDerecho());
+}
+
+
+// Recorrer todo el arbol para mostrar los activos que no estan rentados
+void ArbolAVL::mostrarYaRentados() {
+    mostrarYaRentados(this->raiz);
+}
+
+void ArbolAVL::mostrarYaRentados(NodoAVL *raiz) {
+    if (raiz == nullptr) {
+        return;
+    }
+
+    if (!raiz->isDisponible()) {
+        raiz->mostrarDetallesActivo(); // Metodo para filtrar los activos rentados
+    }
+
+    // Recorrer el subárbol izquierdo
+    mostrarYaRentados(raiz->getIzquierdo());
+
+    // Recorrer el subárbol derecho
+    mostrarYaRentados(raiz->getDerecho());
 }
 
 // ********************************************************************************************************************

@@ -25,10 +25,11 @@ private:
     string descripcionActivo;
     bool disponible = true;
     string generarID();
+    int diasRenta;
 
     //getter y setter
 public:
-    NodoAVL(string nombreActivo, string descripcion); // Constructor
+    NodoAVL(string nombreActivo, string descripcion, int diasRenta); // Constructor
 
 
     //Getters y Setters
@@ -40,6 +41,7 @@ public:
     void setDescripcionActivo(string descripcionActivo);
     bool isDisponible();
     void setDisponible(bool disponible);
+    int getDiasRenta();
 
 
     int getFactorEquilibrio();
