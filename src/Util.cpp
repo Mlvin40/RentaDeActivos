@@ -7,6 +7,13 @@
 #include <sstream>
 
 void Util::generarReporteTransacciones(ListaDobleEnlazada<RentaActivo>* lista) {
+
+    if (lista->getTamano() == 0)
+    {
+        cout << "No hay transacciones para generar el reporte." << endl;
+        return;
+    }
+
     std::ofstream archivo("reporte_transacciones.dot");
 
     if (!archivo.is_open()) {

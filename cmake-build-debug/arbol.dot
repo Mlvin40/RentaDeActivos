@@ -1,10 +1,10 @@
 digraph AVL {
     node [shape=circle, style=filled];
-    "168307842177123" [label="martillos\n168307842177123", fillcolor=lightblue];
-    "168307842177123" -> "113092579063368";
-    "113092579063368" [label="madera\n113092579063368", fillcolor=lightblue];
-    "168307842177123" -> "440484745230271";
-    "440484745230271" [label="caladora\n440484745230271", fillcolor=lightblue];
-    "440484745230271" -> "465917409627753";
-    "465917409627753" [label="barreno\n465917409627753", fillcolor=lightblue];
+    "313748797300825" [label="pedestales\n313748797300825", fillcolor=lightblue];
+    "313748797300825" -> "018677429846266";
+    "018677429846266" [label="audio\n018677429846266", fillcolor=lightblue];
+    "313748797300825" -> "755492943905864";
+    "755492943905864" [label="microfonos\n755492943905864", fillcolor=lightblue];
+    "755492943905864" -> "598626169393802";
+    "598626169393802" [label="atriles\n598626169393802", fillcolor=lightblue];
 }

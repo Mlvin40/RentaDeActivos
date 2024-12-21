@@ -282,7 +282,7 @@ void Controlador::activosRentadosUsuario()
 
 void Controlador::ordenarTransaccion()
 {
-    //Todo
+    cout<<"Ordenando transacciones..."<<endl;
 }
 
 //********************************************************************************************************************
@@ -503,10 +503,46 @@ void Controlador::activosRentados()
                 transaccion->mostrarEnLinea();
             }
         }
-        //Implementar la parte de devolver un activo
 
+        //Implementar la parte de devolver un activo
+        int opcion;
+
+            // Mostrar el menú
+            std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+            std::cout << "1. Registrar Devolución\n";
+            std::cout << "2. Regresar a Menú\n";
+            std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n";
+            std::cout << "Ingrese Opción: ";
+            std::cin >> opcion;
+
+            switch (opcion) {
+            case 1:{
+                    string idActivo;
+                    std::cout << "Ingrese Activo a Devolver: ";
+                    cin >> idActivo;
+
+                    //recorrer nuevamente la lista doble enlazada e ir comparando
+                    for (int i = 0; i < listaTransacciones->getTamano(); ++i)
+                    {
+                        RentaActivo* transaccion = listaTransacciones->obtenerContenido(i);
+                        if (transaccion->getActivo()->getValor() == idActivo){
+                            transaccion->getActivo()->setDisponible(true);
+                            std::cout << "Activo devuelto exitosamente.\n";
+                            return;
+                        }
+                    }cout << "Activo no encontrado.\n";
+            }
+                break;
+            case 2:
+                std::cout << "Regresando al menú...\n";
+                break;
+
+            default:
+                std::cout << "Opción no válida, intente nuevamente.\n";
+                break;
+            }
+        }
     }
-}
 
     void Controlador::misActivosRentados(){
         cin.ignore();
@@ -555,8 +591,6 @@ void Controlador::usuariosGrabados(){
     user->getArbol()->insertar("pantallas","pantallas para proyección",10);
     user->getArbol()->insertar("cañonera","cañonera para proyeccion",10);
     user->getArbol()->insertar("toldo","toldo para eventos al exterior",5);
-
-
 
     user = new Usuario("pedrito", "Pedro Rodriguez", "48956", "jalapa", "usac");
     matrizDispersa->insertarValor(user->getUsername(), user->getDepartamento(), user->getEmpresa());
