@@ -325,6 +325,14 @@ void ArbolAVL::graficarArbol() {
     archivo.close();
 
     std::cout << "Archivo arbol DOT creado exitosamente: " << std::endl;
+    std::string comando = "dot -Tpdf arbol.dot -o arbol.pdf";
+
+    if (std::system(comando.c_str()) == 0) {
+        std::cout << "Archivo PDF generado exitosamente: arbol.pdf" << std::endl;
+    } else {
+        std::cerr << "Error al generar el archivo PDF. Asegúrate de que Graphviz esté instalado." << std::endl;
+    }
+
 }
 
 

@@ -56,20 +56,22 @@ void NodoAVL::setDerecho(NodoAVL *derecho)
 }
 
 string NodoAVL::generarID(){
-
-    // Semilla basada en el tiempo actual
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-
-    // Generador de números aleatorios
-    std::mt19937 generator(seed);
+    // Semilla basada en el tiempo actual (solo se usa una vez)
+    static std::mt19937 generator(std::chrono::system_clock::now().time_since_epoch().count());
 
     // Distribución uniforme [0, 9]
     std::uniform_int_distribution<int> distribucion(0, 9);
 
+    // Generar un ID de 15 dígitos
     std::string id;
     for (int i = 0; i < 15; i++) {
         id += std::to_string(distribucion(generator)); // Genera un dígito y lo agrega al ID
     }
+
+    // Eliminar cualquier espacio en blanco
+    id.erase(std::remove_if(id.begin(), id.end(), [](unsigned char c) { return std::isspace(c); }), id.end());
+
+
     return id;
 }
 
@@ -110,7 +112,7 @@ int NodoAVL::getDiasRenta()
 
 void NodoAVL::mostrarDetallesActivo()
 {
-    cout << "ID: " << this->valor << ";" << "Nombre: " << this->nombreActivo << ";" << "Descripcion: " << this->descripcionActivo << endl;
+    cout << "ID: " << this->valor << ";" << " Nombre: " << this->nombreActivo << ";" << " Descripcion: " << this->descripcionActivo << ";" <<" Tiempo de Renta: " << this->diasRenta << endl;
 }
 
 // Created by melvin on 15/12/24.

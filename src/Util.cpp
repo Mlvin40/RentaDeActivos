@@ -15,39 +15,50 @@ void Util::generarReporteTransacciones(ListaDobleEnlazada<RentaActivo>* lista) {
     }
 
     archivo << "digraph Transacciones {\n";
-    archivo << "    rankdir=LR;\n"; // Configuración para orientación izquierda-derecha
-    archivo << "    node [shape=record, style=filled, fillcolor=lightblue];\n";
+    archivo << "    rankdir=LR;\n";
+    archivo << "    node [shape=none, margin=0];\n"; // Configuración para usar etiquetas HTML
 
-    // Comienza recorriendo desde el primer nodo
     NodoDoble<RentaActivo>* nodo = lista->getInicio();
 
-    // Recorre todos los nodos de la lista hasta que siguiente sea nullptr
     while (nodo != nullptr) {
-        archivo << "    \"" << nodo->getValor()->getIdTransaccion() << "\" [label=\""
-                << nodo->getValor()->mostrarDetalles() << "\"];\n";
+        std::string detalles = nodo->getValor()->mostrarDetalles();
 
-        // Conexión hacia adelante (si el siguiente nodo existe)
+        archivo << "    \"" << nodo->getValor()->getIdTransaccion() << "\" [label=<"
+                << detalles << ">];\n";
+        nodo = nodo->getSiguiente();
+    }
+
+    nodo = lista->getInicio();
+    while (nodo->getSiguiente() != nullptr) {
+
         if (nodo->getSiguiente() != nullptr) {
             archivo << "    \"" << nodo->getValor()->getIdTransaccion() << "\" -> \""
                     << nodo->getSiguiente()->getValor()->getIdTransaccion() << "\";\n";
         }
 
-        // Conexión hacia atrás (si el nodo anterior existe)
         if (nodo->getAnterior() != nullptr) {
             archivo << "    \"" << nodo->getValor()->getIdTransaccion() << "\" -> \""
-                    << nodo->getAnterior()->getValor()->getIdTransaccion() << "\" [dir=back];\n";
+                    << nodo->getAnterior()->getValor()->getIdTransaccion() << "\" \n";
         }
-
-        // Avanzar al siguiente nodo
         nodo = nodo->getSiguiente();
     }
+    archivo << "    \"" << nodo->getValor()->getIdTransaccion() << "\" -> \""
+                << nodo->getAnterior()->getValor()->getIdTransaccion() << "\" \n";
+
 
     archivo << "}\n";
     archivo.close();
-    if (!archivo)
-    {
-        cout << "Error al crear el archivo" << endl;
+
+    if (!archivo) {
+        std::cerr << "Error al crear el archivo DOT." << std::endl;
+    } else {
+        std::cout << "Reporte de transacciones generado exitosamente: reporte_transacciones.dot" << std::endl;
     }
 
-    std::cout << "Reporte de transacciones generado exitosamente: reporte_transacciones.dot" << std::endl;
+    int result = system("dot -Tpdf reporte_transacciones.dot -o reporte_transacciones.pdf");
+    if (result != 0) {
+        std::cerr << "Error al generar el PDF." << std::endl;
+    } else {
+        std::cout << "PDF generado exitosamente: reporte_transacciones.pdf" << std::endl;
+    }
 }

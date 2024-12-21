@@ -117,6 +117,14 @@ void Controlador::iniciarMenuAdministrador() {
         int opcion;
         cin >> opcion;
 
+        // Validar si la entrada es un número entero válido o no para evitar errores
+        if (cin.fail()) {
+            cout << "Entrada no válida. Por favor, ingrese un número." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
         switch (opcion) {
             case 0:
                 continuar = false;
@@ -267,7 +275,7 @@ void Controlador::activosRentadosUsuario()
         RentaActivo* transaccion = listaTransacciones->obtenerContenido(i);
 
         if (transaccion->getUsuario()->getUsername() == username){
-            cout << transaccion->mostrarDetalles() << endl;
+            transaccion->informacionDeTransaccion();
         }
     }
 }
@@ -295,36 +303,43 @@ void Controlador::iniciarMenuUsuario() {
         cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << endl;
         cout << "Ingresar Opción: ";
 
-
         int opcion;
         cin >> opcion;
 
+        // Validar si la entrada es un número entero válido o no para evitar errores
+        if (cin.fail()) {
+            cout << "Entrada no válida. Por favor, ingrese un número." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            continue;
+        }
+
         switch (opcion) {
-            case 7:
-                continuar = false;
-                cout << "Cerrando sesión de Usuario..." << endl;
-                break;
-            case 1:
-                agregarActivo();
-                break;
-            case 2:
-                eliminarActivo();
-                break;
-            case 3:
-                modificarActivo();
-                break;
-            case 4:
-                rentarActivo();
-                break;
-            case 5:
-                activosRentados();
-                break;
-            case 6:
-                misActivosRentados();
-                break;
-            default:
-                cout << "Opción no válida. Intente nuevamente." << endl;
-                break;
+        case 7:
+            continuar = false;
+            cout << "Cerrando sesión de Usuario..." << endl;
+            break;
+        case 1:
+            agregarActivo();
+            break;
+        case 2:
+            eliminarActivo();
+            break;
+        case 3:
+            modificarActivo();
+            break;
+        case 4:
+            rentarActivo();
+            break;
+        case 5:
+            activosRentados();
+            break;
+        case 6:
+            misActivosRentados();
+            break;
+        default:
+            cout << "Opción no válida. Intente nuevamente." << endl;
+            break;
         }
 
         if (continuar) {
@@ -335,7 +350,9 @@ void Controlador::iniciarMenuUsuario() {
     }
 }
 
+
 void Controlador::agregarActivo(){
+    cin.ignore();
     cout << "Ingrese el nombre del activo: ";
     string nombreActivo;
     getline(cin, nombreActivo);
@@ -358,36 +375,35 @@ void Controlador::agregarActivo(){
 
     usuarioLogueado->getArbol()->insertar(nombreActivo, descripcion, diasRenta);
     cout << "Activo agregado exitosamente." << endl;
-    cout << "Presione Enter para continuar...";
-    cin.ignore();
-    cin.get();
 
 }
-void Controlador::eliminarActivo(){
+void Controlador::eliminarActivo() {
+    cin.ignore(); // Limpiar buffer de entrada
     // pedir un string que sera el id del activo a eliminar
     separador();
     usuarioLogueado->getArbol()->recorrerArbol();
     separador();
     cout << "Ingrese el ID del activo a eliminar: ";
     string idActivo;
-    cin >> idActivo;
+    getline(cin, idActivo); // Usar getline para capturar correctamente el ID como string
 
     NodoAVL *activo = usuarioLogueado->getArbol()->buscar(idActivo);
+    if (activo == nullptr) { // Validar si el activo existe
+        cout << "El activo con el ID ingresado no existe." << endl;
+        return;
+    }
+
     if (!activo->isDisponible()) {
         cout << "No se puede eliminar un activo rentado" << endl;
         return;
     }
-    if (activo == nullptr) {
-        cout << "Activo no encontrado." << endl;
-        return;
-    }
-    usuarioLogueado->getArbol()->eliminar(idActivo);
+
+    usuarioLogueado->getArbol()->eliminar(activo->getValor()); // Para asegurarse que se elimine correctamente
     cout << "Activo eliminado exitosamente." << endl;
-    cout << "Presione Enter para continuar...";
-    cin.ignore();
-    cin.get();
 }
+
 void Controlador::modificarActivo(){
+    cin.ignore();
     separador();
     usuarioLogueado->getArbol()->recorrerTodoElArbol();
     separador();
@@ -399,9 +415,10 @@ void Controlador::modificarActivo(){
 
     NodoAVL *activo = usuarioLogueado->getArbol()->buscar(idActivo);
     if (activo == nullptr) {
-        cout << "Activo no encontrado." << endl;
-    } else
-    {
+            cout << "Activo no encontrado." << endl;
+            return;
+        }
+
         //Pedir la nueva descripcion del activo y modificarla
         cout << "Ingrese la nueva descripción del activo: ";
         string nuevaDescripcion;
@@ -409,49 +426,72 @@ void Controlador::modificarActivo(){
         getline(cin, nuevaDescripcion);
         activo->setDescripcionActivo(nuevaDescripcion);
         cout << "Descripción modificada exitosamente." << endl;
-    }
+
 }
+
 void Controlador::rentarActivo()
 {
-    // Primero se debera recorrer la lista de todos los usuarios y mostrar sus nombre de usuario
-    for (int i = 0; i < listaUsuarios->getTamano(); ++i) {
+    cin.ignore();
+    for (int i = 0; i < listaUsuarios->getTamano(); ++i)
+    {
         Usuario* user = listaUsuarios->obtenerContenido(i);
-        cout << i << ". " << user->getUsername() << endl;
+        if (user->getUsername() != usuarioLogueado->getUsername()) {
+            cout << i << ". " << user->getUsername() << endl;
+        }
     }
-    cout << "Seleccione el usuario al que desea rentar el activo: " << endl;
+    cout << "Seleccione el usuario a mostrar su catálogo: ";
     int opcion;
     cin >> opcion;
 
+    if (cin.fail() || opcion < 0 || opcion >= listaUsuarios->getTamano()) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Opción inválida." << endl;
+        return;
+    }
+
+    cin.ignore();
     separador();
-    listaUsuarios->obtenerContenido(opcion)->getArbol()->recorrerArbol(); // Este metodos se encarga de mostrar todos los activos disponibles del usuario seleccionado
-    cout << "Seleccione el activo que desea rentar: " << endl;
-    string idActivo; // leerlo con getLine
+    listaUsuarios->obtenerContenido(opcion)->getArbol()->recorrerArbol();
+    cout << "Seleccione el activo que desea rentar: ";
+    string idActivo;
     getline(cin, idActivo);
-    NodoAVL *aRentar = listaUsuarios->obtenerContenido(opcion)->getArbol()->buscar(idActivo);
+
+    NodoAVL* aRentar = listaUsuarios->obtenerContenido(opcion)->getArbol()->buscar(idActivo);
     if (aRentar == nullptr) {
         cout << "Activo no encontrado." << endl;
         return;
     }
-        aRentar->mostrarDetallesActivo();
 
-        cout << "Ingrese la cantidad de días que desea rentar el activo: ";
-        int dias;
-        cin >> dias;
+    aRentar->mostrarDetallesActivo();
+    cout << "Ingrese la cantidad de días que desea rentar el activo: ";
+    int dias;
+    cin >> dias;
 
-        if (dias > aRentar->getDiasRenta()) {
-            cout << "El activo no puede ser rentado por más de " << aRentar->getDiasRenta() << " días." << endl;
-            return;
-        }
-        aRentar->setDisponible(false);
-        //RentaActivo(string idActivo, Usuario *usuario, string fechaRenta, string diasRentado);
-        RentaActivo *transaccion = new RentaActivo(aRentar, listaUsuarios->obtenerContenido(opcion), std::to_string(dias));
-        listaTransacciones->agregarElemento(transaccion);
-        cout << "Activo rentado exitosamente." << endl;
+    if (cin.fail() || dias <= 0) {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Cantidad de días no válida." << endl;
+        return;
     }
+
+    if (dias > aRentar->getDiasRenta()) {
+        cout << "El activo no puede ser rentado por más de " << aRentar->getDiasRenta() << " días." << endl;
+        return;
+    }
+
+    aRentar->setDisponible(false);
+    RentaActivo* transaccion = new RentaActivo(aRentar, usuarioLogueado, std::to_string(dias));
+    listaTransacciones->agregarElemento(transaccion);
+    cout << "Activo rentado exitosamente." << endl;
+}
 
 void Controlador::activosRentados()
 {
+    // Aqui se deben de mostrar los activos que contiene la lista de transacciones con el usuario logueado
+    cin.ignore();
     separador();
+    cout << "Activos rentados por: " << usuarioLogueado->getNombre() << endl;
     //Aqui se debe de recorrer la lista de transacciones y mostrar los que coincidan con el usuario logueado
     for (int i = 0; i < listaTransacciones->getTamano(); ++i) {
         RentaActivo* transaccion = listaTransacciones->obtenerContenido(i);
@@ -469,9 +509,10 @@ void Controlador::activosRentados()
 }
 
     void Controlador::misActivosRentados(){
+        cin.ignore();
         //Aqui debo de recorrer el arbol y ver cuales tienen el disponible en falso, esos se deben de mostrar
         separador();
-        cout << "Activos rentados por " << usuarioLogueado->getNombre() << endl;
+        cout << "Activos que " << usuarioLogueado->getNombre()<<" ha rentado" << endl;
         separador();
         usuarioLogueado->getArbol()->mostrarYaRentados();
     }
@@ -483,7 +524,6 @@ void Controlador::activosRentados()
 
 void Controlador::usuariosGrabados(){
     Usuario *user;
-
     user = new Usuario("elian_estrada", "Elian Estrada", "1234", "guatemala", "igss");
     matrizDispersa->insertarValor(user->getUsername(), user->getDepartamento(), user->getEmpresa());
     listaUsuarios->agregarElemento(user);

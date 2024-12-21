@@ -30,7 +30,7 @@ public:
     //Getters de todo
     RentaActivo(NodoAVL *activo, Usuario *usuario, string diasRentado);
     ~RentaActivo();
-    int getIdTransaccion();
+    string getIdTransaccion();
     Usuario *getUsuario();
     string getFechaRenta();
     string getDiasRentado();
@@ -39,6 +39,7 @@ public:
 
     // Implementar metodos de la clase
     std::string mostrarDetalles();
+    void informacionDeTransaccion();
 
 
 };

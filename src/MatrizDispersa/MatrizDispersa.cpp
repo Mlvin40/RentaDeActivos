@@ -557,4 +557,13 @@ void MatrizDispersa::graficarMatriz(const std::string& nombreArchivo) {
         return;
     }
     pruebaArchivo.close();
+
+    std::string comando = "dot -Tpdf " + nombreArchivo + " -o " + nombreArchivo + ".pdf";
+    int resultado = system(comando.c_str());
+    if (resultado == 0) {
+        std::cout << "Archivo PDF creado exitosamente: " << nombreArchivo << ".pdf" << std::endl;
+    } else {
+        std::cerr << "Error al crear el archivo PDF. Asegúrate de tener Graphviz instalado y en el PATH del sistema." << std::endl;
+    }
+
 }
